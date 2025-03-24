@@ -1,0 +1,58 @@
+To build WASM use the following command: wasm-pack build --target web # Note that you might need to install extra libs in your system
+
+-------------------------------------------------------------------------------
+
+The location of the apps which each folder has the name of language used
+linear-regression/app
+neural-network/app
+-------------------------------------------------------------------------------
+
+To run website
+python server.py
+
+After each button stops executing, it will ask you to save a file, depending which button was clicked the file has to be saved in a location
+
+Linear Regression:
+Linear Regression Tensorflow.js cpu: linear-regression/training_result/tensorflow_js_cpu
+Linear Regression Tensorflow.js webgpu: linear-regression/training_result/tensorflow_js_webgpu
+Linear Regression WASM CPU: linear-regression/training_result/rust_wasm
+
+Neural Network:
+NN Tensorflow.js CPU: neural-network/training_result/tensorflow_js_cpu
+NN Tensorflow.js WebGPU: neural-network/training_result/tensorflow_js_webgpu
+NN WASM CPU: neural-network/training_result/rust_wasm
+
+-------------------------------------------------------------------------------
+
+To run python app
+
+Linear Regression:
+
+cd to linear-regression/app/python
+python main.py 1 # for sample 10%
+python main.py 2 # for sample 50%
+python main.py 3 # for sample 100%
+
+When the process stop execution it will save the file automatically at linear-regression/training_result/python
+
+Neural Network:
+cd to neural-network/app/python
+python main.py 1 # for sample 10%
+python main.py 2 # for sample 50%
+python main.py 3 # for sample 100%
+
+When the process stop execution it will save the file automatically at neural-network/training_result/python
+
+-------------------------------------------------------------------------------
+
+To plot graphs
+
+Linear Regression:
+
+cd linear-regression/plot
+python main.py
+
+Neural Network:
+
+cd neural-network/plot
+python main.py
