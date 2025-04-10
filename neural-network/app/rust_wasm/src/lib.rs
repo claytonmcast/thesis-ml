@@ -77,6 +77,8 @@ fn get_mnist_data(
     Ok(((train_images, train_labels), (test_images, test_labels)))
 }
 
+//wasm-pack build --target web
+
 #[wasm_bindgen]
 pub async fn fetch_and_train(
     train_images: &[u8],

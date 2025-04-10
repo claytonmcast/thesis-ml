@@ -1,0 +1,885 @@
+[
+    {
+        "id": 1,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:00:01.316Z",
+                "end": "2025-04-10T06:00:04.574Z",
+                "result_item_id": 1,
+                "location": "linear-regression/training_result/1",
+                "experiment_path": "linear-regression/training_result/1/1",
+                "result_path": "linear-regression/training_result/1/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:00:04.588Z",
+                "end": "2025-04-10T06:00:07.461Z",
+                "result_item_id": 1,
+                "location": "linear-regression/training_result/1",
+                "experiment_path": "linear-regression/training_result/1/2",
+                "result_path": "linear-regression/training_result/1/2/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:00:07.474Z",
+                "end": "2025-04-10T06:00:10.200Z",
+                "result_item_id": 1,
+                "location": "linear-regression/training_result/1",
+                "experiment_path": "linear-regression/training_result/1/3",
+                "result_path": "linear-regression/training_result/1/3/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "tries": 3,
+        "experiments": []
+    },
+    {
+        "id": 3,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "NN TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:02:40.880Z",
+                "end": "2025-04-10T06:02:53.180Z",
+                "result_item_id": 3,
+                "location": "neural-network/training_result/3",
+                "experiment_path": "neural-network/training_result/3/1",
+                "result_path": "neural-network/training_result/3/1/nn_mnist_tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "NN TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:02:53.185Z",
+                "end": "2025-04-10T06:03:04.840Z",
+                "result_item_id": 3,
+                "location": "neural-network/training_result/3",
+                "experiment_path": "neural-network/training_result/3/2",
+                "result_path": "neural-network/training_result/3/2/nn_mnist_tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "NN TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:03:04.846Z",
+                "end": "2025-04-10T06:03:16.475Z",
+                "result_item_id": 3,
+                "location": "neural-network/training_result/3",
+                "experiment_path": "neural-network/training_result/3/3",
+                "result_path": "neural-network/training_result/3/3/nn_mnist_tensorflow_js_webgpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:12:41.659Z",
+                "end": "2025-04-10T06:12:44.739Z",
+                "result_item_id": 4,
+                "location": "linear-regression/training_result/4",
+                "experiment_path": "linear-regression/training_result/4/1",
+                "result_path": "linear-regression/training_result/4/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:12:44.752Z",
+                "end": "2025-04-10T06:12:47.842Z",
+                "result_item_id": 4,
+                "location": "linear-regression/training_result/4",
+                "experiment_path": "linear-regression/training_result/4/2",
+                "result_path": "linear-regression/training_result/4/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:12:47.856Z",
+                "end": "2025-04-10T06:12:50.986Z",
+                "result_item_id": 4,
+                "location": "linear-regression/training_result/4",
+                "experiment_path": "linear-regression/training_result/4/3",
+                "result_path": "linear-regression/training_result/4/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:13:26.156Z",
+                "end": "2025-04-10T06:13:31.759Z",
+                "result_item_id": 5,
+                "location": "linear-regression/training_result/5",
+                "experiment_path": "linear-regression/training_result/5/1",
+                "result_path": "linear-regression/training_result/5/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:13:31.772Z",
+                "end": "2025-04-10T06:13:34.874Z",
+                "result_item_id": 5,
+                "location": "linear-regression/training_result/5",
+                "experiment_path": "linear-regression/training_result/5/2",
+                "result_path": "linear-regression/training_result/5/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:13:34.885Z",
+                "end": "2025-04-10T06:13:38.188Z",
+                "result_item_id": 5,
+                "location": "linear-regression/training_result/5",
+                "experiment_path": "linear-regression/training_result/5/3",
+                "result_path": "linear-regression/training_result/5/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:17:54.039Z",
+                "end": "2025-04-10T06:17:57.182Z",
+                "result_item_id": 6,
+                "location": "linear-regression/training_result/6",
+                "experiment_path": "linear-regression/training_result/6/1",
+                "result_path": "linear-regression/training_result/6/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:17:57.196Z",
+                "end": "2025-04-10T06:18:00.299Z",
+                "result_item_id": 6,
+                "location": "linear-regression/training_result/6",
+                "experiment_path": "linear-regression/training_result/6/2",
+                "result_path": "linear-regression/training_result/6/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:18:00.310Z",
+                "end": "2025-04-10T06:18:03.543Z",
+                "result_item_id": 6,
+                "location": "linear-regression/training_result/6",
+                "experiment_path": "linear-regression/training_result/6/3",
+                "result_path": "linear-regression/training_result/6/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "tries": 1,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:18:24.794Z",
+                "end": "2025-04-10T06:18:27.943Z",
+                "result_item_id": 7,
+                "location": "linear-regression/training_result/7",
+                "experiment_path": "linear-regression/training_result/7/1",
+                "result_path": "linear-regression/training_result/7/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "tries": 1,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:19:25.782Z",
+                "end": "2025-04-10T06:19:28.871Z",
+                "result_item_id": 8,
+                "location": "linear-regression/training_result/8",
+                "experiment_path": "linear-regression/training_result/8/1",
+                "result_path": "linear-regression/training_result/8/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:29:07.711Z",
+                "end": "2025-04-10T06:29:10.733Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:29:10.751Z",
+                "end": "2025-04-10T06:29:13.812Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:29:13.825Z",
+                "end": "2025-04-10T06:29:17.006Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:29:17.020Z",
+                "end": "2025-04-10T06:29:30.465Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:29:30.521Z",
+                "end": "2025-04-10T06:29:44.359Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:29:44.421Z",
+                "end": "2025-04-10T06:29:57.889Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 100%",
+                "start": "2025-04-10T06:29:57.948Z",
+                "end": "2025-04-10T06:30:26.579Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_100%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 100%",
+                "start": "2025-04-10T06:30:26.698Z",
+                "end": "2025-04-10T06:30:55.347Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_100%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 100%",
+                "start": "2025-04-10T06:30:55.458Z",
+                "end": "2025-04-10T06:31:24.257Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_100%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:31:24.374Z",
+                "end": "2025-04-10T06:31:28.231Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:31:28.242Z",
+                "end": "2025-04-10T06:31:30.948Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js webgpu 10%",
+                "start": "2025-04-10T06:31:30.959Z",
+                "end": "2025-04-10T06:31:33.497Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 50%",
+                "start": "2025-04-10T06:31:33.509Z",
+                "end": "2025-04-10T06:31:42.086Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js webgpu 50%",
+                "start": "2025-04-10T06:31:42.143Z",
+                "end": "2025-04-10T06:31:49.895Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js webgpu 50%",
+                "start": "2025-04-10T06:31:49.949Z",
+                "end": "2025-04-10T06:31:58.389Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_50%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js webgpu 100%",
+                "start": "2025-04-10T06:31:58.446Z",
+                "end": "2025-04-10T06:32:13.129Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_100%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js webgpu 100%",
+                "start": "2025-04-10T06:32:13.234Z",
+                "end": "2025-04-10T06:32:28.473Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_100%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js webgpu 100%",
+                "start": "2025-04-10T06:32:28.579Z",
+                "end": "2025-04-10T06:32:45.196Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_webgpu/tensorflow_js_webgpu_sample_100%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js wasm 10%",
+                "start": "2025-04-10T06:32:45.325Z",
+                "end": "2025-04-10T06:32:48.748Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_wasm/tensorflow_js_wasm_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js wasm 10%",
+                "start": "2025-04-10T06:32:48.759Z",
+                "end": "2025-04-10T06:32:51.036Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_wasm/tensorflow_js_wasm_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js wasm 10%",
+                "start": "2025-04-10T06:32:51.048Z",
+                "end": "2025-04-10T06:32:53.374Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_wasm/tensorflow_js_wasm_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js wasm 50%",
+                "start": "2025-04-10T06:32:53.404Z",
+                "end": "2025-04-10T06:33:04.923Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_wasm/tensorflow_js_wasm_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js wasm 50%",
+                "start": "2025-04-10T06:33:04.983Z",
+                "end": "2025-04-10T06:33:16.804Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_wasm/tensorflow_js_wasm_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js wasm 50%",
+                "start": "2025-04-10T06:33:16.860Z",
+                "end": "2025-04-10T06:33:28.244Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_wasm/tensorflow_js_wasm_sample_50%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js wasm 100%",
+                "start": "2025-04-10T06:33:28.306Z",
+                "end": "2025-04-10T06:34:00.620Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/1",
+                "result_path": "linear-regression/training_result/9/1/tensorflow_js_wasm/tensorflow_js_wasm_sample_100%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js wasm 100%",
+                "start": "2025-04-10T06:34:00.750Z",
+                "end": "2025-04-10T06:34:33.305Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/2",
+                "result_path": "linear-regression/training_result/9/2/tensorflow_js_wasm/tensorflow_js_wasm_sample_100%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js wasm 100%",
+                "start": "2025-04-10T06:34:33.417Z",
+                "end": "2025-04-10T06:35:06.332Z",
+                "result_item_id": 9,
+                "location": "linear-regression/training_result/9",
+                "experiment_path": "linear-regression/training_result/9/3",
+                "result_path": "linear-regression/training_result/9/3/tensorflow_js_wasm/tensorflow_js_wasm_sample_100%.json"
+            },
+            {
+                "try": 1,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:35:06.446Z",
+                "end": "2025-04-10T06:35:30.623Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/1",
+                "result_path": "neural-network/training_result/9/1/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:35:30.624Z",
+                "end": "2025-04-10T06:35:53.515Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/2",
+                "result_path": "neural-network/training_result/9/2/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T06:35:53.516Z",
+                "end": "2025-04-10T06:36:17.883Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/3",
+                "result_path": "neural-network/training_result/9/3/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "NN TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:36:17.884Z",
+                "end": "2025-04-10T06:37:59.579Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/1",
+                "result_path": "neural-network/training_result/9/1/nn_mnist_tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "NN TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:37:59.579Z",
+                "end": "2025-04-10T06:39:52.555Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/2",
+                "result_path": "neural-network/training_result/9/2/nn_mnist_tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "NN TensorFlow.js cpu 50%",
+                "start": "2025-04-10T06:39:52.555Z",
+                "end": "2025-04-10T06:41:53.274Z",
+                "result_item_id": 9,
+                "location": "neural-network/training_result/9",
+                "experiment_path": "neural-network/training_result/9/3",
+                "result_path": "neural-network/training_result/9/3/nn_mnist_tensorflow_js_cpu_sample_50%.json"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "tries": 3,
+        "experiments": []
+    },
+    {
+        "id": 11,
+        "tries": 3,
+        "experiments": []
+    },
+    {
+        "id": 12,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression Rust WASM CPU10%",
+                "start": "2025-04-10T06:54:22.001Z",
+                "end": "2025-04-10T06:54:22.780Z",
+                "result_item_id": 12,
+                "location": "linear-regression/training_result/12",
+                "experiment_path": "linear-regression/training_result/12/1",
+                "result_path": "linear-regression/training_result/12/1/rust_wasm_cpu/rust_wasm_cpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Neural Network Rust WASM CPU10%",
+                "start": "2025-04-10T06:54:50.943Z",
+                "end": "2025-04-10T06:56:14.818Z",
+                "result_item_id": 13,
+                "location": "neural-network/training_result/13",
+                "experiment_path": "neural-network/training_result/13/1",
+                "result_path": "neural-network/training_result/13/1/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_10%%.json"
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:05:45.948Z",
+                "end": "2025-04-10T07:06:10.362Z",
+                "result_item_id": 14,
+                "location": "neural-network/training_result/14",
+                "experiment_path": "neural-network/training_result/14/1",
+                "result_path": "neural-network/training_result/14/1/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:06:10.362Z",
+                "end": "2025-04-10T07:06:34.840Z",
+                "result_item_id": 14,
+                "location": "neural-network/training_result/14",
+                "experiment_path": "neural-network/training_result/14/2",
+                "result_path": "neural-network/training_result/14/2/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "NN TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:06:34.840Z",
+                "end": "2025-04-10T07:06:59.028Z",
+                "result_item_id": 14,
+                "location": "neural-network/training_result/14",
+                "experiment_path": "neural-network/training_result/14/3",
+                "result_path": "neural-network/training_result/14/3/nn_mnist_tensorflow_js_cpu_sample_10%.json"
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:09:07.793Z",
+                "end": "2025-04-10T07:09:10.955Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/1",
+                "result_path": "linear-regression/training_result/15/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:09:10.967Z",
+                "end": "2025-04-10T07:09:14.310Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/2",
+                "result_path": "linear-regression/training_result/15/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 10%",
+                "start": "2025-04-10T07:09:14.337Z",
+                "end": "2025-04-10T07:09:17.755Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/3",
+                "result_path": "linear-regression/training_result/15/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T07:09:17.765Z",
+                "end": "2025-04-10T07:09:31.113Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/1",
+                "result_path": "linear-regression/training_result/15/1/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T07:09:31.176Z",
+                "end": "2025-04-10T07:09:45.675Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/2",
+                "result_path": "linear-regression/training_result/15/2/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression TensorFlow.js cpu 50%",
+                "start": "2025-04-10T07:09:45.733Z",
+                "end": "2025-04-10T07:09:59.707Z",
+                "result_item_id": 15,
+                "location": "linear-regression/training_result/15",
+                "experiment_path": "linear-regression/training_result/15/3",
+                "result_path": "linear-regression/training_result/15/3/tensorflow_js_cpu/tensorflow_js_cpu_sample_50%.json"
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "tries": 3,
+        "experiments": [
+            {
+                "try": 1,
+                "title": "Linear Regression Rust WASM CPU10%",
+                "start": "2025-04-10T07:10:21.595Z",
+                "end": "2025-04-10T07:10:22.304Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/1",
+                "result_path": "linear-regression/training_result/16/1/rust_wasm_cpu/rust_wasm_cpu_sample_10%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression Rust WASM CPU10%",
+                "start": "2025-04-10T07:10:22.314Z",
+                "end": "2025-04-10T07:10:22.770Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/2",
+                "result_path": "linear-regression/training_result/16/2/rust_wasm_cpu/rust_wasm_cpu_sample_10%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression Rust WASM CPU10%",
+                "start": "2025-04-10T07:10:22.784Z",
+                "end": "2025-04-10T07:10:23.376Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/3",
+                "result_path": "linear-regression/training_result/16/3/rust_wasm_cpu/rust_wasm_cpu_sample_10%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression Rust WASM CPU50%",
+                "start": "2025-04-10T07:10:23.386Z",
+                "end": "2025-04-10T07:10:24.408Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/1",
+                "result_path": "linear-regression/training_result/16/1/rust_wasm_cpu/rust_wasm_cpu_sample_50%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression Rust WASM CPU50%",
+                "start": "2025-04-10T07:10:24.481Z",
+                "end": "2025-04-10T07:10:26.400Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/2",
+                "result_path": "linear-regression/training_result/16/2/rust_wasm_cpu/rust_wasm_cpu_sample_50%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression Rust WASM CPU50%",
+                "start": "2025-04-10T07:10:26.457Z",
+                "end": "2025-04-10T07:10:27.894Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/3",
+                "result_path": "linear-regression/training_result/16/3/rust_wasm_cpu/rust_wasm_cpu_sample_50%.json"
+            },
+            {
+                "try": 1,
+                "title": "Linear Regression Rust WASM CPU100%",
+                "start": "2025-04-10T07:10:27.963Z",
+                "end": "2025-04-10T07:10:30.614Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/1",
+                "result_path": "linear-regression/training_result/16/1/rust_wasm_cpu/rust_wasm_cpu_sample_100%.json"
+            },
+            {
+                "try": 2,
+                "title": "Linear Regression Rust WASM CPU100%",
+                "start": "2025-04-10T07:10:30.720Z",
+                "end": "2025-04-10T07:10:33.333Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/2",
+                "result_path": "linear-regression/training_result/16/2/rust_wasm_cpu/rust_wasm_cpu_sample_100%.json"
+            },
+            {
+                "try": 3,
+                "title": "Linear Regression Rust WASM CPU100%",
+                "start": "2025-04-10T07:10:33.444Z",
+                "end": "2025-04-10T07:10:36.530Z",
+                "result_item_id": 16,
+                "location": "linear-regression/training_result/16",
+                "experiment_path": "linear-regression/training_result/16/3",
+                "result_path": "linear-regression/training_result/16/3/rust_wasm_cpu/rust_wasm_cpu_sample_100%.json"
+            },
+            {
+                "try": 1,
+                "title": "Neural Network Rust WASM CPU10%",
+                "start": "2025-04-10T07:10:36.639Z",
+                "end": "2025-04-10T07:11:57.368Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/1",
+                "result_path": "neural-network/training_result/16/1/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_10%%.json"
+            },
+            {
+                "try": 2,
+                "title": "Neural Network Rust WASM CPU10%",
+                "start": "2025-04-10T07:11:57.369Z",
+                "end": "2025-04-10T07:13:14.486Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/2",
+                "result_path": "neural-network/training_result/16/2/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_10%%.json"
+            },
+            {
+                "try": 3,
+                "title": "Neural Network Rust WASM CPU10%",
+                "start": "2025-04-10T07:13:14.487Z",
+                "end": "2025-04-10T07:14:31.694Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/3",
+                "result_path": "neural-network/training_result/16/3/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_10%%.json"
+            },
+            {
+                "try": 1,
+                "title": "Neural Network Rust WASM CPU50%",
+                "start": "2025-04-10T07:14:31.701Z",
+                "end": "2025-04-10T07:15:50.328Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/1",
+                "result_path": "neural-network/training_result/16/1/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_50%%.json"
+            },
+            {
+                "try": 2,
+                "title": "Neural Network Rust WASM CPU50%",
+                "start": "2025-04-10T07:15:50.329Z",
+                "end": "2025-04-10T07:17:07.221Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/2",
+                "result_path": "neural-network/training_result/16/2/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_50%%.json"
+            },
+            {
+                "try": 3,
+                "title": "Neural Network Rust WASM CPU50%",
+                "start": "2025-04-10T07:17:07.222Z",
+                "end": "2025-04-10T07:18:24.586Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/3",
+                "result_path": "neural-network/training_result/16/3/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_50%%.json"
+            },
+            {
+                "try": 1,
+                "title": "Neural Network Rust WASM CPU100%",
+                "start": "2025-04-10T07:18:24.587Z",
+                "end": "2025-04-10T07:19:43.238Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/1",
+                "result_path": "neural-network/training_result/16/1/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_100%%.json"
+            },
+            {
+                "try": 2,
+                "title": "Neural Network Rust WASM CPU100%",
+                "start": "2025-04-10T07:19:43.238Z",
+                "end": "2025-04-10T07:21:01.472Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/2",
+                "result_path": "neural-network/training_result/16/2/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_100%%.json"
+            },
+            {
+                "try": 3,
+                "title": "Neural Network Rust WASM CPU100%",
+                "start": "2025-04-10T07:21:01.472Z",
+                "end": "2025-04-10T07:22:18.685Z",
+                "result_item_id": 16,
+                "location": "neural-network/training_result/16",
+                "experiment_path": "neural-network/training_result/16/3",
+                "result_path": "neural-network/training_result/16/3/rust_wasm_cpu/nn_mnist_rust_wasm_cpu_sample_100%%.json"
+            }
+        ]
+    }
+]

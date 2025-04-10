@@ -148,6 +148,8 @@ fn normalize_features(features: &[Vec<f64>]) -> Vec<Vec<f64>> {
  
 use nabla_ml::nabla::Nabla;
  
+////wasm-pack build --target web
+
 #[wasm_bindgen]
 pub async fn fetch_and_train(
     features_js: JsValue,
@@ -261,81 +263,81 @@ pub async fn fetch_and_train(
     // Ok(serde_wasm_bindgen::to_value(&result).unwrap())
 } 
 
-#[wasm_bindgen]
-pub async fn fetch_and_train2(
-    features_js: JsValue,
-    target_js: JsValue
-) -> Result<JsValue, JsValue> {
-    let features: Vec<Vec<f64>> = from_value::<Vec<f64>>(features_js)
-            .map_err(|e| JsValue::from_str(&format!("Failed to deserialize features: {}", e)))?
-            .into_iter()
-            .map(|x| vec![x])
-            .collect();
-    let target: Vec<f64> = from_value(target_js)
-        .map_err(|e| JsValue::from_str(&format!("Failed to deserialize target: {}", e)))?;
+// #[wasm_bindgen]
+// pub async fn fetch_and_train2(
+//     features_js: JsValue,
+//     target_js: JsValue
+// ) -> Result<JsValue, JsValue> {
+//     let features: Vec<Vec<f64>> = from_value::<Vec<f64>>(features_js)
+//             .map_err(|e| JsValue::from_str(&format!("Failed to deserialize features: {}", e)))?
+//             .into_iter()
+//             .map(|x| vec![x])
+//             .collect();
+//     let target: Vec<f64> = from_value(target_js)
+//         .map_err(|e| JsValue::from_str(&format!("Failed to deserialize target: {}", e)))?;
  
   
-    console::log_1(&format!("features {:?}", features).into());
-    let normalized_features_x: Vec<Vec<f64>> = normalize_features(&features);
-    let X: Vec<f64> = normalized_features_x.clone().into_iter().flatten().collect(); 
-    let X = NDArray::from_vec(X);
-    let y = NDArray::from_vec(target.clone());
-    console::log_1(&format!("X {:?}", X).into());
-    console::log_1(&format!("Y {:?}", y).into());
+//     console::log_1(&format!("features {:?}", features).into());
+//     let normalized_features_x: Vec<Vec<f64>> = normalize_features(&features);
+//     let X: Vec<f64> = normalized_features_x.clone().into_iter().flatten().collect(); 
+//     let X = NDArray::from_vec(X);
+//     let y = NDArray::from_vec(target.clone());
+//     console::log_1(&format!("X {:?}", X).into());
+//     console::log_1(&format!("Y {:?}", y).into());
         
-    // Apply linear regression
-    let m = X.size() as f64;
-    let mut theta_0 = 0.0;
-    let mut theta_1 = 0.0;
-    let learning_rate = 0.01;
-    let num_epochs = 200;
-    let mut loss_history = Vec::with_capacity(num_epochs);
+//     // Apply linear regression
+//     let m = X.size() as f64;
+//     let mut theta_0 = 0.0;
+//     let mut theta_1 = 0.0;
+//     let learning_rate = 0.01;
+//     let num_epochs = 200;
+//     let mut loss_history = Vec::with_capacity(num_epochs);
  
-    let start_time = window().unwrap().performance().unwrap().now();
-    // Training loop
-    for epoch in 0..num_epochs {
-        let predictions = X.clone() * theta_1 + theta_0;
-        let errors = predictions.clone() - y.clone();
+//     let start_time = window().unwrap().performance().unwrap().now();
+//     // Training loop
+//     for epoch in 0..num_epochs {
+//         let predictions = X.clone() * theta_1 + theta_0;
+//         let errors = predictions.clone() - y.clone();
         
-        // Convert errors to Vec<f64> if needed
-        let errors_vec: Vec<f64> = (0..errors.size()).map(|i| errors.get(i)).collect();
+//         // Convert errors to Vec<f64> if needed
+//         let errors_vec: Vec<f64> = (0..errors.size()).map(|i| errors.get(i)).collect();
 
-        // Compute gradients
-        let d_theta_0 = (1.0 / m) * errors_vec.iter().sum::<f64>();
-        let d_theta_1 = (1.0 / m) * X.data().iter().zip(errors_vec.iter()).map(|(&x, &e)| x * e).sum::<f64>();
+//         // Compute gradients
+//         let d_theta_0 = (1.0 / m) * errors_vec.iter().sum::<f64>();
+//         let d_theta_1 = (1.0 / m) * X.data().iter().zip(errors_vec.iter()).map(|(&x, &e)| x * e).sum::<f64>();
         
-        // Update parameters
-        theta_0 -= learning_rate * d_theta_0;
-        theta_1 -= learning_rate * d_theta_1;
+//         // Update parameters
+//         theta_0 -= learning_rate * d_theta_0;
+//         theta_1 -= learning_rate * d_theta_1;
         
-        // Compute and store loss
-        let mse = (1.0 / (2.0 * m)) * errors_vec.iter().map(|e| e * e).sum::<f64>();
-        loss_history.push(mse);
-    }
-    let end_time = window().unwrap().performance().unwrap().now();
-    let training_time = end_time - start_time;
+//         // Compute and store loss
+//         let mse = (1.0 / (2.0 * m)) * errors_vec.iter().map(|e| e * e).sum::<f64>();
+//         loss_history.push(mse);
+//     }
+//     let end_time = window().unwrap().performance().unwrap().now();
+//     let training_time = end_time - start_time;
  
-    let start_time = window().unwrap().performance().unwrap().now();
-    let final_predictions = X.clone() * theta_1 + theta_0;
-    let end_time = window().unwrap().performance().unwrap().now();
-    let inference_time = end_time - start_time;
+//     let start_time = window().unwrap().performance().unwrap().now();
+//     let final_predictions = X.clone() * theta_1 + theta_0;
+//     let end_time = window().unwrap().performance().unwrap().now();
+//     let inference_time = end_time - start_time;
 
-    console::log_1(&format!("Final Predictions: {:?}", final_predictions).into());
+//     console::log_1(&format!("Final Predictions: {:?}", final_predictions).into());
  
-    // Calculate MSE and R-squared
-    let mse = calculate_mse(&final_predictions.data, &y.data);
-    let r2 = calculate_r_squared(&final_predictions.data, &y.data);
+//     // Calculate MSE and R-squared
+//     let mse = calculate_mse(&final_predictions.data, &y.data);
+//     let r2 = calculate_r_squared(&final_predictions.data, &y.data);
 
-    let result = TrainingResult {
-        features: normalized_features_x,
-        target: target.into_iter().map(|x| vec![x]).collect(),
-        predictions: final_predictions.data.into_iter().map(|x| vec![x]).collect(),
-        loss_history,
-        training_time_ms: training_time,
-        inference_time_ms: inference_time,
-        mse: mse,
-        r2: r2,
-    };
+//     let result = TrainingResult {
+//         features: normalized_features_x,
+//         target: target.into_iter().map(|x| vec![x]).collect(),
+//         predictions: final_predictions.data.into_iter().map(|x| vec![x]).collect(),
+//         loss_history,
+//         training_time_ms: training_time,
+//         inference_time_ms: inference_time,
+//         mse: mse,
+//         r2: r2,
+//     };
 
-    Ok(serde_wasm_bindgen::to_value(&result).unwrap())
-} 
+//     Ok(serde_wasm_bindgen::to_value(&result).unwrap())
+// } 

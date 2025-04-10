@@ -21,27 +21,56 @@ async function fetchDataset(datasetPath, targetColumn, featureColumn) {
     return { features, target };
 }
 
-async function run(engine, datasetPath) {  
+async function run(engine, datasetPath, sample) {  
+    const startProcessTs = new Date();
      await init();  // Initialize the WebAssembly module
     // Fetch the dataset from the API
     const { features, target } = await fetchDataset(datasetPath, "price", "area");
     const features1D = features.flat(); 
     const target1D = target.flat(); 
-    const data = await fetch_and_train(features1D, target1D); 
-    console.log(data);  // Log the prediction result
+    const data = await fetch_and_train(features1D, target1D);  
+    const endProcessTs = new Date();
     
-    downloadJson(data, "rust_wasm_cpu_" + datasetPath.replace("house_price/", "").replace('.csv', ''));
-}
 
+    const experiments_path = "linear-regression/training_result/" + currentResultItem.id;
+    appendExperiment({
+        experiment: {
+            try: executionTries,
+            type: "Linear Regression Rust WASM CPU",
+            sample,
+            title: "Linear Regression Rust WASM CPU " + sample,
+            start: startProcessTs,
+            end: endProcessTs,
+            result_item_id: currentResultItem.id,
+            location: experiments_path,
+            experiment_path: experiments_path + "/" + executionTries,
+            result_path:  experiments_path + "/" + executionTries + '/rust_wasm_cpu/' + "rust_wasm_cpu_" + datasetPath.replace("house_price/", "").replace('.csv', '') + '.json'
+        },
+        results: data
+    })   
+} 
+
+const handleLinearRegressionRustWasm = async (el) =>{
+    var dsPath = el.getAttribute('dataset');  
+    var engine = el.getAttribute('engine');  
+    var sample = el.getAttribute('sample');
+
+    if(runAllProcessing != true){
+        getNewResultItem();
+    }
+     
+    startProcess(el);
+    await startProcessing(el, async ()=> await run(engine, dsPath, sample));
+    stopProcess(el);
+   
+}
+ 
 document.addEventListener('DOMContentLoaded', (event) => {
     Array.from(document.querySelectorAll("button.lr-wasm")).forEach(el => {
         el.addEventListener("click", async () => {
-            var dsPath = el.getAttribute('dataset');  
-            var engine = el.getAttribute('engine');  
-            startProcess(el);
-            let result = await run(engine, dsPath);
-            stopProcess(el);
-            console.log(result);
+            await handleLinearRegressionRustWasm(el);
         });
     });
 });
+
+export default handleLinearRegressionRustWasm;

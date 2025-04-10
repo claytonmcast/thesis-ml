@@ -67,7 +67,9 @@ async function predictAndMeasure(model, inputTensor) {
 
 
 // Preprocess Data
-async function trainModel(engine, trainPercentage) {
+async function trainModel(engine, trainPercentage, sample) {
+    const startProcessMs = new Date();
+    await setupBackend(engine);
     const { trainImages, trainLabels, testImages, testLabels } = await loadMNIST(trainPercentage);
 
     // Build and train your model here (using trainImages, trainLabels, etc.)
@@ -97,17 +99,11 @@ async function trainModel(engine, trainPercentage) {
                 accuracyValues.push(logs.acc);
                 valLossValues.push(logs.val_loss);
                 valAccuracyValues.push(logs.val_acc);
-                // console.log(
-                // `Epoch ${epoch + 1}: loss = ${logs.loss}, acc = ${logs.acc}, val_loss = ${
-                //     logs.val_loss
-                // }, val_acc = ${logs.val_acc}`
-                // );
             },
         },
     });
     const endTime = performance.now();
     const trainingTime = (endTime - startTime);
-    console.log('Training time:', trainingTime, 'milliseconds');
 
     const evalResult = await model.evaluate(testImages, testLabels);
 
@@ -117,39 +113,60 @@ async function trainModel(engine, trainPercentage) {
     const loss = await lossTensor.array();
     const accuracy = await accuracyTensor.array();
 
-    console.log('Loss:', loss);
-    console.log('Accuracy:', accuracy);
-
     const sampleImage = testImages.slice([0], [1]);
 
     const { predictedClass, inferenceTime } = await predictAndMeasure(model, sampleImage);
 
-    console.log('Predicted class:', predictedClass);
-    console.log('Inference time:', inferenceTime);
+    const endProcessMs = new Date();
 
-    downloadJson({
-        loss_values: lossValues,
-        accuracy_values: accuracyValues,
-        val_loss_values: valLossValues,
-        val_accuracy_values:valAccuracyValues,
-        training_time_ms: trainingTime,
-        inference_time_ms: inferenceTime,
-        loss,
-        accuracy
-    }, 'nn_mnist_tensorflow_js_' + engine +'_sample_' + (trainPercentage * 100) + "%")  
+    const experiments_path = "neural-network/training_result/" + currentResultItem.id;
+    
+    appendExperiment({
+        experiment: {
+            try: executionTries,
+            type: "Neural Network Rust TensorFlow.js " + engine ,
+            sample,
+            title: "Neural Network TensorFlow.js " + engine + " " + sample,
+            start: startProcessMs,
+            end: endProcessMs,
+            result_item_id: currentResultItem.id,
+            location: experiments_path,
+            experiment_path: experiments_path + "/" + executionTries,
+            result_path:  experiments_path + "/" + executionTries + "/" + 'nn_mnist_tensorflow_js_' + engine +'_sample_' + (trainPercentage * 100) + "%.json"
+        },
+        results: {
+            loss_values: lossValues,
+            accuracy_values: accuracyValues,
+            val_loss_values: valLossValues,
+            val_accuracy_values:valAccuracyValues,
+            training_time_ms: trainingTime,
+            inference_time_ms: inferenceTime,
+            loss,
+            accuracy
+        }
+    })   
 }
 
+
+const handleNeuralNetwork = async (el) => {
+    var trainPercentage = el.getAttribute('dataset');
+    var engine = el.getAttribute('engine');
+    var sample = el.getAttribute('sample');
+
+    if(runAllProcessing != true){
+        getNewResultItem();
+    }
+    startProcess(el);
+    await startProcessing(el, async ()=> await trainModel(engine, parseFloat(trainPercentage), sample))
+    stopProcess(el);
+};
 
 document.addEventListener('DOMContentLoaded', (event) => {
     Array.from(document.querySelectorAll("button.mnist-tf")).forEach(el => {
         el.addEventListener("click", async () => {
-            var trainPercentage = el.getAttribute('dataset');
-            var engine = el.getAttribute('engine');
-
-            startProcess(el);
-            await setupBackend(engine);
-            await trainModel(engine, parseFloat(trainPercentage));
-            stopProcess(el);
+            await handleNeuralNetwork(el)
         });
     });
 });
+
+export default handleNeuralNetwork;

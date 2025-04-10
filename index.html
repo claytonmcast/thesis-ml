@@ -36,6 +36,18 @@
             transform: translateY(-50%);
             animation: spin 1s linear infinite;
         }
+        button.processing .process-number{
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-top-color: transparent;
+            position: absolute;
+            right: -18px;
+            top: 50%;
+        }
+        .process-number{
+            display: none;
+        }
 
         @keyframes spin {
             0% { transform: translateY(-50%) rotate(0deg); }
@@ -73,116 +85,163 @@
 
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-semibold mb-6 text-center">Train ML Datasets in Browser</h1>
-        
-        <table class="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
-            <thead class="bg-blue-500 text-white">
-                <tr>
-                    <th class="py-2 px-4 text-center">Model</th>
-                    <th class="py-2 px-4 text-center" colspan="3">Dataset Size</th>
-                </tr>
-                <tr>
-                    <th class="py-2 px-4"></th>
-                    <th class="py-2 px-4 text-center"></th>
-                    <th class="py-2 px-4 text-center"></th>
-                    <th class="py-2 px-4 text-center"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="4">
-                        <h1 class="title">Linear Regression</h1>
-                    </td>
-                </tr>
-                <!-- Model Row 1 -->
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">Linear Regression TensorFlow.js CPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)</button></td>
-                </tr>
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">Linear Regression TensorFlow.js WebGPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)</button></td>
-                </tr>
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">Linear Regression TensorFlow.js WASM</td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)</button></td>
-                </tr>
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">Linear Regression WASM CPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_10%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10% )</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_50%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="house_price/sample_100%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)</button></td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <h1 class="title">Neural Network</h1>
-                    </td>
-                </tr>
-                <!-- Model Row 2 -->
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">NN TensorFlow.js CPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%) </button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
-                </tr>
-                
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">NN TensorFlow.js WebGPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
-                </tr>
-                
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">NN TensorFlow.js WASM</td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="wasm" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
-                </tr>
+        <div class="flex gap-4">
+            <div class="w-1/2 overflow-auto">
+                <table class="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <thead class="bg-blue-500 text-white">
+                        <tr>
+                            <th class="py-2 px-4 text-center">Model</th>
+                            <th class="py-2 px-4 text-center" colspan="3">Dataset Size</th>
+                        </tr>
+                        <tr>
+                            <th class="py-2 px-4"></th>
+                            <th class="py-2 px-4 text-center"></th>
+                            <th class="py-2 px-4 text-center"></th>
+                            <th class="py-2 px-4 text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h1 class="title">Linear Regression</h1>
+                            </td>
+                        </tr>
+                        <!-- Model Row 1 -->
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">Linear Regression TensorFlow.js CPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="10%" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="50%" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="100%" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">Linear Regression TensorFlow.js WebGPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="10%" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="50%" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="100%" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">Linear Regression TensorFlow.js WASM</td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="10%" dataset="house_price/sample_10%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="50%" dataset="house_price/sample_50%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="100%" dataset="house_price/sample_100%.csv" class="lr-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">Linear Regression WASM CPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="10%" dataset="house_price/sample_10%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="50%" dataset="house_price/sample_50%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="100%" dataset="house_price/sample_100%.csv" class="lr-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <h1 class="title">Neural Network</h1>
+                            </td>
+                        </tr>
+                        <!-- Model Row 2 -->
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">NN TensorFlow.js CPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="10%" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="50%" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="100%" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button><span class="process-number"></span></td>
+                        </tr>
+                        
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">NN TensorFlow.js WebGPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="10%" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="50%" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" sample="100%" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+                        
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">NN TensorFlow.js WASM</td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="10%" dataset="0.10" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="50%" dataset="0.50" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="wasm" sample="100%" dataset="1.0" class="mnist-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
 
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">NN WASM CPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="0.10" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="0.50" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="cpu" dataset="1.0" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
-                </tr>
-<!--                 
-                <tr class="border-t border-gray-200">
-                    <td class="py-4 px-4">LLM TensorFlow.js WebGPU</td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.10" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.50" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)</button></td>
-                    <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="1.0" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
-                </tr>
-                  -->
-            </tbody>
-        </table>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">NN WASM CPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="10%" dataset="0.10" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="50%" dataset="0.50" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-4 text-center"><button engine="cpu" sample="100%" dataset="1.0" class="mnist-wasm bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)<span class="process-number"></span></button></td>
+                        </tr>
+        <!--                 
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-4">LLM TensorFlow.js WebGPU</td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.10" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 10%)</button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="0.50" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 50%)</button></td>
+                            <td class="py-4 px-4 text-center"><button engine="webgpu" dataset="1.0" class="llm-tf bg-blue-500 text-white py-2 px-4 rounded-lg">Run mnist (sample 100%)</button></td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="w-1/2 bg-gray-50 p-4 border border-gray-200">
+              <h2 class="text-lg font-semibold mb-2">Operations</h2>
+              <div class="p-4">
+                <label for="tries" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tries
+                </label>
+                <input
+                  type="number"
+                  id="tries"
+                  name="tries"
+                  min="1"
+                  class="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="1"
+                  value="3"
+                />
+                <button
+                  type="button"
+                  class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  id="run-all"
+                >
+                  Run All
+                </button>
+              </div>
+            </div>
+        </div>
     </div>
  
-<script>
-  
-    function downloadJson(jsonData, filename) {
-        // Convert the JSON object to a JSON string.
-        const jsonString = JSON.stringify(jsonData, null, 2); // null, 2 for pretty-printing
-    
-        // Create a Blob object from the JSON string.
-        const blob = new Blob([jsonString], { type: 'application/json' });
-    
-        // Create a temporary anchor element.
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = filename + '.json' || 'data.json'; // Default filename if not provided.
-    
-        // Append the anchor to the document, trigger a click, and remove it.
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    } 
+<script >
 
+    var currentResultItem = null;
+    var executionTries = 1;
+    var runAllProcessing = false;
+
+
+    async function startProcessing(el, process) {
+        var tries = Number(document.getElementById("tries").value);
+        for (let i = 0; i < tries; i++) {
+            executionTries = i+1;
+            el.querySelector('.process-number').innerHTML = (tries + 1 - executionTries);
+            await process();
+        }
+    }
+
+    async function getNewResultItem() {
+        var tries = Number(document.getElementById("tries").value);
+        const response = await fetch("/api/new_result_item?tries=" + tries);
+        const data = await response.json();
+        currentResultItem = data;
+        return data;
+    }
+
+
+    async function appendExperiment(experiment) {
+
+        const response = await fetch("/api/append_experiment", {
+            method: "POST", // Specifies the request method
+            headers: {
+                "Content-Type": "application/json" // Tells the server that the request body is JSON
+            },
+            body: JSON.stringify(experiment) // Convert the data object to a JSON string
+        });
+
+        // Parse the response as JSON
+        const responseData = await response.json();
+        return responseData; 
+    } 
+    
     function startProcess(el){
         disable_enable_buttons(true); 
         el.classList.add("processing");
@@ -206,7 +265,48 @@
     <script type="module" src="/linear-regression/app/rust_wasm/src/rust_wasm_app.js"></script>
     <script type="module" src="/neural-network/app/tensorflow_js/tensorflow_js_app.js"></script>
     <script type="module" src="/neural-network/app/rust_wasm/src/rust-wasm-app.js"></script>
-    <script type="module" src="/large-language-model/app//tensorflow_js/tensorflow_js_app.js"></script>
+    
+    <script type="module"> 
+        import handleLinearRegression from '/linear-regression/app/tensorflow_js/tensorflow_js_app.js'
+        import handleLinearRegressionRustWasm from '/linear-regression/app/rust_wasm/src/rust_wasm_app.js'
+        import handleNeuralNetwork from '/neural-network/app/tensorflow_js/tensorflow_js_app.js';
+        import handleNeuralNetworkRustWasm from '/neural-network/app/rust_wasm/src/rust-wasm-app.js';
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var el = document.getElementById('run-all');
+            el.addEventListener("click", async () => {
+                await runAll();
+            }); 
+        });
+
+        async function runAll(){  
+            runAllProcessing = true;
+            getNewResultItem(); 
+            var els = Array.from(document.querySelectorAll("button.lr-tf"));
+            for(const el of els){
+               // await handleLinearRegression(el);
+            }
+            var els = Array.from(document.querySelectorAll("button.lr-wasm"));
+            for(const el of els){
+                await handleLinearRegressionRustWasm(el);
+            }
+            
+            var els = Array.from(document.querySelectorAll("button.mnist-tf"));
+            for(const el of els){
+               // await handleNeuralNetwork(el);
+            }
+            var els = Array.from(document.querySelectorAll("button.mnist-wasm"));
+            for(const el of els){
+                await handleNeuralNetworkRustWasm(el);
+            }
+            
+            runAllProcessing = false;
+        }
+
+    </script>
+
+
+    <!-- <script type="module" src="/large-language-model/app//tensorflow_js/tensorflow_js_app.js"></script> -->
 
     <!--
     <script type="module" src="/transformer/assets/t-app.js"></script> -->

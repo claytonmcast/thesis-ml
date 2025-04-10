@@ -33,19 +33,33 @@ async function fetchDataset(datasetPath, targetColumn, featureColumn) {
     return { features, target };
 }
   
-async function saveData(features, target, predictions, lossHistory, trainingTime, inferenceTime, mse, r2, fileName) {
-    var predArray =  predictions.arraySync();
-    console.log("predictions", predArray) 
-    downloadJson({
-        features,
-        target,
-        predictions: predArray,
-        loss_history: lossHistory,
-        training_time_ms: trainingTime,
-        inference_time_ms: inferenceTime,
-        mse,
-        r2
-    }, fileName.replace('.csv', ''))  
+async function saveData(engine, sample, start, end, features, target, predictions, lossHistory, trainingTime, inferenceTime, mse, r2, fileName) {
+    var predArray =  predictions.arraySync(); 
+    const experiments_path = "linear-regression/training_result/" + currentResultItem.id;
+    appendExperiment({
+        experiment: {
+            try: executionTries,
+            type: "Linear Regression TensorFlow.js " + engine,
+            sample,
+            title: "Linear Regression TensorFlow.js " + engine + " " + sample,
+            start,
+            end,
+            result_item_id: currentResultItem.id,
+            location: experiments_path,
+            experiment_path: experiments_path + "/" + executionTries,
+            result_path:  experiments_path + "/" + executionTries + "/" + fileName.replace('.csv', '') + '.json'
+        },
+        results: {
+            features,
+            target,
+            predictions: predArray,
+            loss_history: lossHistory,
+            training_time_ms: trainingTime,
+            inference_time_ms: inferenceTime,
+            mse,
+            r2
+        }
+    })  
 }
 
 function normalizeData(features) {
@@ -96,21 +110,15 @@ async function trainModel(features, target) {
     return { model, trainingTime, lossHistory } ;
 }
  
-async function run(engine, datasetPath) {
+async function runLinearRegression(engine, datasetPath, sample) {
+    const startProcessTs = new Date();
     await setupBackend(engine);
     // Fetch the dataset from the API
     const { features, target } = await fetchDataset(datasetPath, "price", "area");
-
-    console.log("features", features);
-    console.log("target", target);
-    // Normalize the data
-    const { normalizedFeatures, featureScaler } = normalizeData(features);
-    //const normalizedFeatures = normalize(features);
-    const normalizedTarget = target;// normalize(target);
-    console.log("normalizedFeatures", normalizedFeatures);
-    console.log("normalizedTarget", normalizedTarget);
  
-    console.log("normalizedFeatures", normalizedFeatures);
+    // Normalize the data
+    const { normalizedFeatures, featureScaler } = normalizeData(features); 
+    const normalizedTarget = target; 
     // Train the model
     const { model, trainingTime, lossHistory } = await trainModel(normalizedFeatures, normalizedTarget);
 
@@ -128,19 +136,33 @@ async function run(engine, datasetPath) {
     console.log(`R-squared: ${r2}`);
  
     // Plot the regression line (you'll need a plotting library like Plotly.js or Chart.js)
-    await saveData(normalizedFeatures, normalizedTarget, predictions, lossHistory, trainingTime, inferenceTime, mse, r2, "tensorflow_js_" + engine + "_" + datasetPath.replace("house_price/", ""));
+    const endProcessTs = new Date();
+    await saveData(engine, sample, startProcessTs, endProcessTs, normalizedFeatures, normalizedTarget, predictions, lossHistory, trainingTime, inferenceTime, mse, r2, "tensorflow_js_" + engine + "/" + "tensorflow_js_" + engine + "_" + datasetPath.replace("house_price/", ""));
   
     return { model }; 
 }
- 
+
+
+const handleLinearRegression = async (el) => {
+    var dsPath = el.getAttribute('dataset');
+    var engine = el.getAttribute('engine');
+    var sample = el.getAttribute('sample');
+
+    if(runAllProcessing != true){
+        getNewResultItem();
+    }
+    startProcess(el);
+    await startProcessing(el, async ()=> await runLinearRegression(engine, dsPath, sample))
+    stopProcess(el); 
+};
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     Array.from(document.querySelectorAll("button.lr-tf")).forEach(el => {
         el.addEventListener("click", async () => {
-            var dsPath = el.getAttribute('dataset');
-            var engine = el.getAttribute('engine');
-            startProcess(el);
-            let result = await run(engine, dsPath);
-            stopProcess(el);
+            await handleLinearRegression(el);
         });
     });
 });
+
+export default handleLinearRegression;
