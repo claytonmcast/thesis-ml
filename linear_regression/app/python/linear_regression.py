@@ -99,7 +99,7 @@ def run(dataset_path, target_column, feature_categories, feature_index_to_train_
     model, training_time, loss_history = train_model(normalized_features, target)
 
     results = evaluate_model(model, normalized_features, target, loss_history, training_time, dataset)
-
+    del model
     return results
 
 def process(dataset, executionTries, sample, result_item_id):

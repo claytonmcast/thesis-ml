@@ -81,7 +81,7 @@ async function run(engine, datasetPath, sample) {
  * Event handler for the "Run" button that starts the WASM-based linear regression.
  * @param {HTMLElement} el - The button element that triggered the event.
  */
-const handleLinearRegressionRustWasm = async (el) => {
+const handleLinearRegressionRustWasm = async (el, position) => {
     const datasetPath = el.getAttribute('dataset');
     const engine = el.getAttribute('engine');
     const sample = el.getAttribute('sample');
@@ -91,7 +91,7 @@ const handleLinearRegressionRustWasm = async (el) => {
     }
 
     startProcess(el);
-    await startProcessing(el, async () => await run(engine, datasetPath, sample));
+    await startProcessing(el, async () => await run(engine, datasetPath, sample), position);
     
     if (!runAllProcessing) {
         await plotLinearRegression();

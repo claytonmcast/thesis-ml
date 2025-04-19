@@ -1,6 +1,9 @@
 // Setup the backend for TensorFlow.js
 async function setupBackend(engine) {
     console.log(engine); // Log the selected engine
+    await tf.setBackend('cpu');
+    await tf.ready();
+    await sleep(1000);
     if (tf.engine().backendNames().includes(engine)) {
         // If the engine is supported, set it as the backend
         await tf.setBackend(engine);
@@ -75,10 +78,10 @@ async function predictAndMeasure(model, inputTensor) {
 // Train the model with the given engine and data
 async function trainModel(engine, trainPercentage, sample) {
     const startProcessMs = new Date();
+    //tf.engine().startScope();
     
     // Setup the TensorFlow.js backend
     await setupBackend(engine);
-    
     // Load the MNIST dataset
     const { trainImages, trainLabels, testImages, testLabels } = await loadMNIST(trainPercentage);
 
@@ -118,7 +121,7 @@ async function trainModel(engine, trainPercentage, sample) {
     });
     const endTime = performance.now();
     const trainingTime = (endTime - startTime); // Calculate total training time
-
+    
     // Evaluate the model on the test dataset
     const evalResult = await model.evaluate(testImages, testLabels);
 
@@ -128,17 +131,18 @@ async function trainModel(engine, trainPercentage, sample) {
     const loss = await lossTensor.array();
     const accuracy = await accuracyTensor.array();
 
+     
     // Use a sample image to test the model's inference time
     const sampleImage = testImages.slice([0], [1]);
     const { predictedClass, inferenceTime } = await predictAndMeasure(model, sampleImage);
-
+        
     const endProcessMs = new Date();
 
     // Path for storing experiment results
     const experimentsPath = "neural_network/training_result/" + currentResultItem.id;
 
     // Append the experiment results to the experiment history
-    appendExperiment({
+    await appendExperiment({
         experiment: {
             try: executionTries,
             type: "Neural Network Rust TensorFlow.js " + engine,
@@ -164,10 +168,21 @@ async function trainModel(engine, trainPercentage, sample) {
             accuracy
         }
     });
+
+    model.dispose();
+    trainImages.dispose();
+    trainLabels.dispose();
+    testImages.dispose();
+    testLabels.dispose();
+    lossTensor.dispose();
+    accuracyTensor.dispose();
+    sampleImage.dispose();
+   // tf.engine().endScope();
+    tf.disposeVariables();
 }
 
 // Handle the neural network execution when a button is clicked
-const handleNeuralNetwork = async (el) => {
+const handleNeuralNetwork = async (el, position) => {
     var trainPercentage = el.getAttribute('dataset');
     var engine = el.getAttribute('engine');
     var sample = el.getAttribute('sample');
@@ -181,7 +196,7 @@ const handleNeuralNetwork = async (el) => {
     }
 
     // Start training the model
-    await startProcessing(el, async () => await trainModel(engine, parseFloat(trainPercentage), sample));
+    await startProcessing(el, async () => await trainModel(engine, parseFloat(trainPercentage), sample), position);
 
     // If not processing all, plot the results
     if (runAllProcessing !== true) {

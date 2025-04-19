@@ -281,14 +281,15 @@
                     </label>
                     <input type="number" id="tries" name="tries" min="1"
                         class="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="1" value="3" />
+                        placeholder="1" value="15" />
                     <button type="button"
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" id="run-all">
                         Run All
                     </button>
                 </div>
-                <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()">
-                    <button id="refresh-result-grid-component" style="display: none;" @click="init()"></button>
+                <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()" :class="{ 'initialized': initialized }">
+                    <!-- <button id="refresh-result-grid-component" style="display: none;" @click="init()"></button> -->
+                    <button id="refresh-result-grid-component" style="display: none;"></button>
                     <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
                         <thead class="bg-gray-100">
                             <tr>
@@ -581,74 +582,6 @@
         </div>
     </div>
 
-    <script>
-        var resultGridComponent = {};
-        function bindResultListTable() {
-            resultGridComponent = {
-                data: [],
-                async init() {
-                    const resultList = await getResultList();
-                    resultList.forEach(result => {
-                        // Group experiments by 'try'
-                        const groupedExperiments = result.experiments.reduce((acc, exp) => {
-                            const key = exp.try;
-                            if (!acc[key]) acc[key] = [];
-                            acc[key].push(exp);
-                            return acc;
-                        }, {});
-
-                        // Convert grouped experiments to a sorted array
-                        result.experiments = Object.entries(groupedExperiments)
-                            .map(([tryNumber, experiments]) => ({
-                                try: Number(tryNumber),
-                                experiments: experiments.sort((a,b)=>Number(a.sample.replace('%', '')) - Number(b.sample.replace('%', '')))
-                            }))
-                            .sort((a, b) => a.try - b.try)
-                            .reverse();
-
-                        result.confidence_interval = {};
-                    });
-
-                    this.data = resultList;
-                    console.log("Data", this.data);
-                    // this.data = resultList.map(item => ({
-                    //     ...item,
-                    //     display_experiments: false
-                    // }));
-                },
-                displayExperiments(operation) {
-                    operation.display_experiments = !operation.display_experiments;
-                    console.log(this.data);
-                },
-                async displayMetrics(operation) {
-                    operation.show_metric = !operation.show_metric;
-                    var firstExperiment = operation.experiments[0].experiments[0];
-                    var firstLocation = firstExperiment.location + '/confidence_interval_metric.json';
-                    
-                    if(firstExperiment.type.indexOf('L') == 0){
-                        var ci = await getConfidenceInterval(firstLocation);
-                        operation.show_metric_lr = true;
-                        operation.lr_confidence_interval = ci;
-                    }
-                    if(firstExperiment.type.indexOf('N') == 0){
-                        var ci = await getConfidenceInterval(firstLocation);
-                        operation.show_metric_nn = true;
-                        operation.nn_confidence_interval = ci;
-                    }
-
-                    var lastExperiment = operation.experiments[operation.experiments.length -1].experiments[0];
-                    var lastLocation = firstExperiment.location + '/confidence_interval_metric.json'; 
-                    if(firstExperiment.type.indexOf('L') != lastExperiment.type.indexOf('L')){
-                        var ci = await getConfidenceInterval(lastLocation);
-                        operation.show_metric_nn = true;
-                        operation.nn_confidence_interval = ci;
-                    }
-                }
-            };
-            return resultGridComponent;
-        }
-
-    </script>
 
     <script>
         function sleep(ms) {
@@ -660,21 +593,23 @@
         var runAllProcessing = false;
 
 
-        async function startProcessing(el, process) {
-            var start = new Date();
+        async function startProcessing(el, process, position) { 
 
             var tries = Number(document.getElementById("tries").value);
-            for (let i = 0; i < tries; i++) {
+            var pinExecutionTries = executionTries;
+            for (let i = pinExecutionTries; i < tries; i++) {
                 executionTries = i + 1;
                 el.querySelector('.process-number').innerHTML = (tries + 1 - executionTries);
 
-                await sleep(1000); // Wait for 1 second (1000 ms) to release resources
+                // await sleep(1000); // Wait for 1 second (1000 ms) to release resources
                 await process();
+                await sleep(1000);
+               // location.href = 'blank.html';
             }
+            executionTries = 0;
             var end = new Date();
             if (runAllProcessing != true) {
-                await updateResultItem({
-                    start,
+                await updateResultItem({ 
                     end,
                     result_item_id: currentResultItem.id
                 });
@@ -708,9 +643,9 @@
             return data;
         }
 
-        async function getNewResultItem() {
+        async function getNewResultItem(is_run_all) {
             var tries = Number(document.getElementById("tries").value);
-            const response = await fetch("/api/new_result_item?tries=" + tries);
+            const response = await fetch("/api/new_result_item?tries=" + tries + "&isRunAll=" + (is_run_all == true) + "&start=" + (new Date()).toISOString());
             const data = await response.json();
             ///
             currentResultItem = data; 
@@ -793,45 +728,82 @@
             });
         });
 
-        async function runAll() {
-            var start = new Date();
+        async function runAll(lastExecutedExperiment) {
+            if(runAllProcessing == true){
+                return;
+            }
             runAllProcessing = true;
-            await getNewResultItem();
-            var els = Array.from(document.querySelectorAll("button.lr-tf"));
-            for (const el of els) {
-                await handleLinearRegression(el);
+            const tries = Number(document.getElementById("tries").value);
+            const totalButtons = 30;
+            
+            const totalExecutions = totalButtons * tries;
+
+            if (lastExecutedExperiment === undefined) {
+                await getNewResultItem(true);
+                lastExecutedExperiment = 0;
+            } 
+
+            if (lastExecutedExperiment >= totalExecutions) {
+                console.log("All done!");
+                const end = new Date();
+                await updateResultItem({
+                    end: end,
+                    result_item_id: currentResultItem.id
+                });
+                await plotLinearRegression();
+                await plotNeuralNetwork();
+                runAllProcessing = false;
+                return;
             }
-            var els = Array.from(document.querySelectorAll("button.lr-wasm"));
-            for (const el of els) {
-                await handleLinearRegressionRustWasm(el);
-            }
-            var els = Array.from(document.querySelectorAll("button.lr-python"));
-            for (const el of els) {
-                await handleLinearRegressionPython(el);
+ 
+            const buttonIndex = Math.floor(lastExecutedExperiment / tries); 
+
+            // Collect all button elements in the same order as your totalButtons count (30)
+            const allButtons = [
+                ...document.querySelectorAll("button.lr-tf"),
+                ...document.querySelectorAll("button.lr-wasm"),
+                ...document.querySelectorAll("button.lr-python"),
+                ...document.querySelectorAll("button.mnist-tf"),
+                ...document.querySelectorAll("button.mnist-wasm"),
+                ...document.querySelectorAll("button.mnist-python")
+            ];
+
+            // Safeguard check
+            if (buttonIndex >= allButtons.length) {
+                console.error("Index out of range: nextIndex is too large.");
+                return;
             }
 
-            var els = Array.from(document.querySelectorAll("button.mnist-tf"));
-            for (const el of els) {
-                await handleNeuralNetwork(el);
+            const executionIndexForThisButton = lastExecutedExperiment % tries;
+            executionTries = executionIndexForThisButton;
+             
+            try {
+                // Call appropriate handler based on button class
+                for (let i = buttonIndex; i < allButtons.length; i++) {
+                    const button = allButtons[i];
+                    const executionIndexForThisButton = i; // update if needed differently
+
+                    if (button.classList.contains("lr-tf")) {
+                        await handleLinearRegression(button, executionIndexForThisButton);
+                    } else if (button.classList.contains("lr-wasm")) {
+                        await handleLinearRegressionRustWasm(button, executionIndexForThisButton);
+                    } else if (button.classList.contains("lr-python")) {
+                        await handleLinearRegressionPython(button, executionIndexForThisButton);
+                    } else if (button.classList.contains("mnist-tf")) {
+                        await handleNeuralNetwork(button, executionIndexForThisButton);
+                    } else if (button.classList.contains("mnist-wasm")) {
+                        await handleNeuralNetworkRustWasm(button, executionIndexForThisButton);
+                    } else if (button.classList.contains("mnist-python")) {
+                        await handleNeuralNetworkPython(button, executionIndexForThisButton);
+                    }
+                }
+            }catch(ex){
+                 location.href = 'blank.html?dt=' + new Date();
             }
-            var els = Array.from(document.querySelectorAll("button.mnist-wasm"));
-            for (const el of els) {
-                await handleNeuralNetworkRustWasm(el);
-            }
-            var els = Array.from(document.querySelectorAll("button.mnist-python"));
-            for (const el of els) {
-                await handleNeuralNetworkPython(el);
-            }
-            var end = new Date();
-            await updateResultItem({
-                start: start,
-                end: end,
-                result_item_id: currentResultItem.id
-            })
-            await plotLinearRegression();
-            await plotNeuralNetwork();
+
             runAllProcessing = false;
         }
+        window.runAll = runAll;
 
         async function runPython(type, dataset, sample) {
             var tries = Number(document.getElementById("tries").value);
@@ -839,7 +811,7 @@
             const data = await response.json();
         }
 
-        async function handleLinearRegressionPython(el) {
+        async function handleLinearRegressionPython(el, position) {
             var dataset = el.getAttribute('dataset');
             var engine = el.getAttribute('engine');
             var sample = el.getAttribute('sample');
@@ -848,14 +820,14 @@
             if (runAllProcessing != true) {
                 await getNewResultItem();
             }
-            await startProcessing(el, async () => await runPython("Linear Regression Python GPU", dataset, sample));
+            await startProcessing(el, async () => await runPython("Linear Regression Python GPU", dataset, sample), position);
             if (runAllProcessing != true) {
                 await plotLinearRegression();
             }
             stopProcess(el);
         }
 
-        async function handleNeuralNetworkPython(el) {
+        async function handleNeuralNetworkPython(el, position) {
             var dataset = el.getAttribute('dataset');
             var engine = el.getAttribute('engine');
             var sample = el.getAttribute('sample');
@@ -886,6 +858,102 @@
 
 
     </script>
+
+    
+<script>
+    var resultGridComponent = {};
+    function bindResultListTable() {
+        resultGridComponent = {
+            data: [],
+            initialized: false,
+            async init() {
+                if (this.initialized) return; // Prevent re-running init if already initialized
+                this.initialized = true;  // Mark as initialized
+                const resultList = await getResultList();
+                if(resultList.length > 0){ 
+                    var resultItem = resultList[resultList.length -1];
+                    var isRunAll = resultItem.isRunAll == 'true';
+                    
+                    if(resultItem.end == undefined){
+                        // needs to continue
+                        document.getElementById("tries").value = resultItem.tries;
+                        currentResultItem = resultItem;
+                        var experiments = resultItem.experiments;
+                        if(isRunAll == true){
+                            var funcRun = false;
+                            do 
+                            {
+                                if (typeof window.runAll === "function") { 
+                                    window.runAll(experiments.length);
+                                    funcRun = true;
+                                }
+                                await sleep(1000);
+                            }while(funcRun == false)
+                            
+                        }
+                    }
+                }
+                resultList.forEach(result => {
+                    // Group experiments by 'try'
+                    const groupedExperiments = result.experiments.reduce((acc, exp) => {
+                        const key = exp.try;
+                        if (!acc[key]) acc[key] = [];
+                        acc[key].push(exp);
+                        return acc;
+                    }, {});
+
+                    // Convert grouped experiments to a sorted array
+                    result.experiments = Object.entries(groupedExperiments)
+                        .map(([tryNumber, experiments]) => ({
+                            try: Number(tryNumber),
+                            experiments: experiments.sort((a,b)=>Number(a.sample.replace('%', '')) - Number(b.sample.replace('%', '')))
+                        }))
+                        .sort((a, b) => a.try - b.try)
+                        .reverse();
+
+                    result.confidence_interval = {};
+                });
+
+                this.data = resultList; 
+
+                // this.data = resultList.map(item => ({
+                //     ...item,
+                //     display_experiments: false
+                // }));
+            },
+            displayExperiments(operation) {
+                operation.display_experiments = !operation.display_experiments;
+                console.log(this.data);
+            },
+            async displayMetrics(operation) {
+                operation.show_metric = !operation.show_metric;
+                var firstExperiment = operation.experiments[0].experiments[0];
+                var firstLocation = firstExperiment.location + '/confidence_interval_metric.json';
+                
+                if(firstExperiment.type.indexOf('L') == 0){
+                    var ci = await getConfidenceInterval(firstLocation);
+                    operation.show_metric_lr = true;
+                    operation.lr_confidence_interval = ci;
+                }
+                if(firstExperiment.type.indexOf('N') == 0){
+                    var ci = await getConfidenceInterval(firstLocation);
+                    operation.show_metric_nn = true;
+                    operation.nn_confidence_interval = ci;
+                }
+
+                var lastExperiment = operation.experiments[operation.experiments.length -1].experiments[0];
+                var lastLocation = firstExperiment.location + '/confidence_interval_metric.json'; 
+                if(firstExperiment.type.indexOf('L') != lastExperiment.type.indexOf('L')){
+                    var ci = await getConfidenceInterval(lastLocation);
+                    operation.show_metric_nn = true;
+                    operation.nn_confidence_interval = ci;
+                }
+            }
+        };
+        return resultGridComponent;
+    }
+
+</script>
 
 
     <!-- <script type="module" src="/large-language-model/app//tensorflow_js/tensorflow_js_app.js"></script> -->

@@ -130,7 +130,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         else :
             data = neural_network.process(dataset, retry, sample, result_item_id)
 
-        self.appened_experiment_to_result_list(data)
+        self.append_experiment_to_result_list(data)
 
         self.response({})
 
@@ -157,7 +157,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         parsed_path = urlparse(self.path)
         query_params = parse_qs(parsed_path.query)
 
-        new_item = {'id': new_id, 'tries': int(query_params.get('tries', [None])[0]), 'experiments': []}
+        new_item = {'id': new_id, 'tries': int(query_params.get('tries', [None])[0]), "isRunAll": query_params.get('isRunAll', [None])[0], "start": query_params.get('start', [None])[0],  'experiments': []}
         data.append(new_item)
         self.save_json_file('result_list.json', data)
         return new_item
@@ -202,7 +202,6 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             result_list = self.get_result_list()
             for item in result_list:
                 if item.get('id') == data['result_item_id']:
-                    item['start'] = data['start'];
                     item['end'] = data['end'];
                     break 
             self.response({})
@@ -227,6 +226,11 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             expires = (datetime.now(timezone.utc) + timedelta(days=30)).strftime("%a, %d %b %Y %H:%M:%S GMT")
             self.send_header("Cache-Control", "public, max-age=2592000")  # 30 days
             self.send_header("Expires", expires)
+            
+        if self.path.endswith("result_list.json"):
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
         super().end_headers()
 
 # Function to start the server and handle retries in case of errors

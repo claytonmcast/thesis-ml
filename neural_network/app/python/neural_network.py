@@ -100,6 +100,8 @@ def train_model(train_percentage):
     print('Predicted class:', prediction_result['predicted_class'])
     print('Inference time:', prediction_result['inference_time'], 'milliseconds')
 
+    del model
+    
     # Return all results and metrics
     return {
         'loss_values': loss_values,

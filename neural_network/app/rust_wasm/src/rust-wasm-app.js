@@ -33,7 +33,7 @@ async function runNab(trainingPercentage, sample) {
         const experiments_path = "neural_network/training_result/" + currentResultItem.id;
 
         // Append the experiment results to the experiment history
-        appendExperiment({
+        await appendExperiment({
             experiment: {
                 try: executionTries,
                 type: "Neural Network Rust WASM CPU",
@@ -57,7 +57,7 @@ async function runNab(trainingPercentage, sample) {
 }
 
 // Handle click events for training the neural network
-const handleNeuralNetworkRustWasm = async (el) => {
+const handleNeuralNetworkRustWasm = async (el, position) => {
     // Extract attributes from the clicked element
     var trainingPercentage = el.getAttribute('dataset');  
     var engine = el.getAttribute('engine');  
@@ -69,7 +69,7 @@ const handleNeuralNetworkRustWasm = async (el) => {
     }
 
     startProcess(el); // Start the process indicator
-    await startProcessing(el, async () => await runNab(parseFloat(trainingPercentage), sample)); // Run the training
+    await startProcessing(el, async () => await runNab(parseFloat(trainingPercentage), sample), position); // Run the training
     // If all processing is not active, plot the results
     if(runAllProcessing != true){
         await plotNeuralNetwork();

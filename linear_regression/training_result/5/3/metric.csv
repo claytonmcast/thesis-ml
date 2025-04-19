@@ -1,2 +1,0 @@
-Platform,Dataset Size,Training Time (ms),Inference Time (ms),MSE,R2
-rust_wasm_cpu,10%,0.071,0.0001,4207718342.946519,0.450109222627347

@@ -47,7 +47,7 @@ async function saveData(engine, sample, start, end, features, target, prediction
     const predArray = predictions.arraySync();
     const experiments_path = "linear_regression/training_result/" + currentResultItem.id;
 
-    appendExperiment({
+    await appendExperiment({
         experiment: {
             try: executionTries,
             type: `Linear Regression TensorFlow.js ${engine}`,
@@ -133,6 +133,8 @@ async function trainModel(features, target) {
 
     const endTime = performance.now();
     const trainingTime = endTime - startTime;
+    xs.dispose();
+    ys.dispose();
 
     return { model, trainingTime, lossHistory };
 }
@@ -142,6 +144,7 @@ async function runLinearRegression(engine, datasetPath, sample) {
     const startProcessTs = new Date();
 
     await setupBackend(engine);
+   // tf.engine().startScope();
 
     // Load and prepare data
     const { features, target } = await fetchDataset(datasetPath, "price", "area");
@@ -164,17 +167,23 @@ async function runLinearRegression(engine, datasetPath, sample) {
     console.log(`Mean Squared Error: ${mse}`);
     console.log(`R-squared: ${r2}`);
 
+
     // Save results
     const endProcessTs = new Date();
     await saveData(engine, sample, startProcessTs, endProcessTs, normalizedFeatures, normalizedTarget, predictions, lossHistory, trainingTime, inferenceTime, mse, r2,
         `tensorflow_js_${engine}/tensorflow_js_${engine}_${datasetPath.replace("house_price/", "")}`
     );
 
-    return { model };
+
+    model.dispose();
+    //tf.engine().endScope();
+    tf.disposeVariables();
+    
+    return { };
 }
 
 // Button click handler for running regression
-const handleLinearRegression = async (el) => {
+const handleLinearRegression = async (el, position) => {
     const dsPath = el.getAttribute('dataset');
     const engine = el.getAttribute('engine');
     const sample = el.getAttribute('sample');
@@ -184,7 +193,7 @@ const handleLinearRegression = async (el) => {
     }
 
     startProcess(el);
-    await startProcessing(el, async () => await runLinearRegression(engine, dsPath, sample));
+    await startProcessing(el, async () => await runLinearRegression(engine, dsPath, sample), position);
     if (runAllProcessing !== true) {
         await plotLinearRegression();
     }
