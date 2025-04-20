@@ -2,7 +2,7 @@
 # sudo apt install unrar
 
 import http.server
-import socketserver
+from socketserver import ThreadingTCPServer
 import json
 import os
 import socket
@@ -238,7 +238,7 @@ def start_server(handler, port=8001, max_retries=5):
     retries = 0
     while retries < max_retries:
         try:
-            with socketserver.TCPServer(("", port), handler) as httpd:
+            with ThreadingTCPServer(("", port), handler) as httpd:
                 print(f"Serving at port {port}")
                 httpd.serve_forever()
                 return  # Successfully started the server

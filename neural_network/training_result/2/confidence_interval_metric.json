@@ -1,0 +1,282 @@
+{
+    "tensorflow_js_cpu": {
+        "10%": {
+            "training_time": {
+                "ci_lower": 17.9,
+                "ci_upper": 19.95
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.42,
+                "ci_upper": 0.44
+            },
+            "accuracy": {
+                "ci_lower": 0.87,
+                "ci_upper": 0.88
+            }
+        },
+        "50%": {
+            "training_time": {
+                "ci_lower": 100.42,
+                "ci_upper": 100.91
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.28,
+                "ci_upper": 0.29
+            },
+            "accuracy": {
+                "ci_lower": 0.91,
+                "ci_upper": 0.92
+            }
+        },
+        "100%": {
+            "training_time": {
+                "ci_lower": 200.76,
+                "ci_upper": 201.75
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.16,
+                "ci_upper": 0.17
+            },
+            "accuracy": {
+                "ci_lower": 0.95,
+                "ci_upper": 0.95
+            }
+        }
+    },
+    "tensorflow_js_wasm": {
+        "10%": {
+            "training_time": {
+                "ci_lower": 10.05,
+                "ci_upper": 10.22
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.42,
+                "ci_upper": 0.44
+            },
+            "accuracy": {
+                "ci_lower": 0.87,
+                "ci_upper": 0.88
+            }
+        },
+        "50%": {
+            "training_time": {
+                "ci_lower": 50.09,
+                "ci_upper": 50.56
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.28,
+                "ci_upper": 0.29
+            },
+            "accuracy": {
+                "ci_lower": 0.91,
+                "ci_upper": 0.92
+            }
+        },
+        "100%": {
+            "training_time": {
+                "ci_lower": 101.12,
+                "ci_upper": 102.08
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.16,
+                "ci_upper": 0.16
+            },
+            "accuracy": {
+                "ci_lower": 0.95,
+                "ci_upper": 0.95
+            }
+        }
+    },
+    "rust_wasm_cpu": {
+        "10%": {
+            "training_time": {
+                "ci_lower": 57.2,
+                "ci_upper": 57.37
+            },
+            "inference_time": {
+                "ci_lower": 5.67,
+                "ci_upper": 5.69
+            },
+            "loss": {
+                "ci_lower": 11.15,
+                "ci_upper": 11.75
+            },
+            "accuracy": {
+                "ci_lower": 0.51,
+                "ci_upper": 0.54
+            }
+        },
+        "50%": {
+            "training_time": {
+                "ci_lower": 58.81,
+                "ci_upper": 58.88
+            },
+            "inference_time": {
+                "ci_lower": 5.65,
+                "ci_upper": 5.67
+            },
+            "loss": {
+                "ci_lower": 5.64,
+                "ci_upper": 5.9
+            },
+            "accuracy": {
+                "ci_lower": 0.77,
+                "ci_upper": 0.78
+            }
+        },
+        "100%": {
+            "training_time": {
+                "ci_lower": 58.17,
+                "ci_upper": 58.28
+            },
+            "inference_time": {
+                "ci_lower": 5.62,
+                "ci_upper": 5.64
+            },
+            "loss": {
+                "ci_lower": 3.98,
+                "ci_upper": 4.08
+            },
+            "accuracy": {
+                "ci_lower": 0.84,
+                "ci_upper": 0.84
+            }
+        }
+    },
+    "tensorflow_js_webgpu": {
+        "10%": {
+            "training_time": {
+                "ci_lower": 4.62,
+                "ci_upper": 4.79
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.42,
+                "ci_upper": 0.44
+            },
+            "accuracy": {
+                "ci_lower": 0.87,
+                "ci_upper": 0.88
+            }
+        },
+        "50%": {
+            "training_time": {
+                "ci_lower": 22.46,
+                "ci_upper": 22.63
+            },
+            "inference_time": {
+                "ci_lower": 0.0,
+                "ci_upper": 0.0
+            },
+            "loss": {
+                "ci_lower": 0.28,
+                "ci_upper": 0.29
+            },
+            "accuracy": {
+                "ci_lower": 0.91,
+                "ci_upper": 0.92
+            }
+        },
+        "100%": {
+            "training_time": {
+                "ci_lower": 41.56,
+                "ci_upper": 42.3
+            },
+            "inference_time": {
+                "ci_lower": -0.0,
+                "ci_upper": 0.04
+            },
+            "loss": {
+                "ci_lower": 0.16,
+                "ci_upper": 0.17
+            },
+            "accuracy": {
+                "ci_lower": 0.95,
+                "ci_upper": 0.95
+            }
+        }
+    },
+    "python_gpu": {
+        "10%": {
+            "training_time": {
+                "ci_lower": 5.49,
+                "ci_upper": 6.37
+            },
+            "inference_time": {
+                "ci_lower": 0.24,
+                "ci_upper": 0.25
+            },
+            "loss": {
+                "ci_lower": 0.41,
+                "ci_upper": 0.43
+            },
+            "accuracy": {
+                "ci_lower": 0.87,
+                "ci_upper": 0.88
+            }
+        },
+        "50%": {
+            "training_time": {
+                "ci_lower": 22.82,
+                "ci_upper": 23.57
+            },
+            "inference_time": {
+                "ci_lower": 0.25,
+                "ci_upper": 0.26
+            },
+            "loss": {
+                "ci_lower": 0.27,
+                "ci_upper": 0.28
+            },
+            "accuracy": {
+                "ci_lower": 0.92,
+                "ci_upper": 0.92
+            }
+        },
+        "100%": {
+            "training_time": {
+                "ci_lower": 43.59,
+                "ci_upper": 44.7
+            },
+            "inference_time": {
+                "ci_lower": 0.25,
+                "ci_upper": 0.25
+            },
+            "loss": {
+                "ci_lower": 0.15,
+                "ci_upper": 0.16
+            },
+            "accuracy": {
+                "ci_lower": 0.95,
+                "ci_upper": 0.95
+            }
+        }
+    }
+}

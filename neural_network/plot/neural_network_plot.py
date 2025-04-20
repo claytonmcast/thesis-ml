@@ -15,7 +15,7 @@ def plot_loss(title, loss, val_loss, save_path):
     ax.spines['right'].set_visible(False)
     plt.plot(loss, color='blue', label='Training Loss')
     plt.plot(val_loss, color='red', label='Validation Loss')
-    plt.title('Model Loss: ' + title)
+  #  plt.title('Model Loss: ' + title)
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
@@ -33,7 +33,7 @@ def plot_accuracy(title, accuracy, val_accuracy, save_path):
     ax.spines['right'].set_visible(False)
     plt.plot(accuracy, color='blue', label='Training Accuracy')
     plt.plot(val_accuracy, color='red', label='Validation Accuracy')
-    plt.title('Model Accuracy: ' + title)
+  #  plt.title('Model Accuracy: ' + title)
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
     plt.legend()
@@ -61,7 +61,7 @@ def plot_grouped_bar_comparisons(data, metrics, dataset_sizes, platforms, save_p
 
         # Add some text for labels, title and custom x-axis tick labels, etc.
         ax.set_ylabel(metric)
-        ax.set_title(f'{metric} Comparison across Dataset Sizes')
+    #    ax.set_title(f'{metric} Comparison across Dataset Sizes')
         ax.set_xticks(x)
         ax.set_xticklabels(dataset_sizes)
         ax.legend()
@@ -93,7 +93,7 @@ def process_json_files(root_folder):
     """Processes JSON files in the root folder, extracts metrics, and generates plots and CSV."""
     metrics = ["training_time", "inference_time", "loss", "accuracy"]
     platform_folders = [f for f in os.listdir(root_folder) if os.path.isdir(os.path.join(root_folder, f))]
-    predefined_platforms = ["python_gpu", "rust_wasm_cpu", "tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm"]
+    predefined_platforms = ["tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm", "rust_wasm_cpu", "python_gpu"]
 
     # Retrieve dataset sizes from the first platform folder
     first_platform_folder = os.path.join(root_folder, platform_folders[0])
@@ -184,7 +184,7 @@ def calculate_confidence_interval(data, confidence=0.95):
     ci_lower = mean - margin_of_error
     ci_upper = mean + margin_of_error
     
-    print(data, ci_lower, ci_upper)
+    # print(data, ci_lower, ci_upper)
     return ci_lower, ci_upper
 
 def save_confidence_interval(data, location): 
@@ -196,7 +196,7 @@ def save_confidence_interval(data, location):
 
     # Loop through each metric and calculate confidence intervals
     for metric in metrics:
-        print(f"Metric: {metric}")
+        # print(f"Metric: {metric}")
         
         # Get the percentages available for the metric (e.g., "10%", "50%")
         percentages = list(data[metric].keys())  # get the percentages (keys under each metric)
@@ -226,23 +226,23 @@ def save_confidence_interval(data, location):
                 # Add the confidence interval for the current metric
                 if metric == "training_time":
                     json_data[platform][percentage]["training_time"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "inference_time":
                     json_data[platform][percentage]["inference_time"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "loss":
                     json_data[platform][percentage]["loss"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "accuracy":
                     json_data[platform][percentage]["accuracy"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
 
     # Print the resulting JSON

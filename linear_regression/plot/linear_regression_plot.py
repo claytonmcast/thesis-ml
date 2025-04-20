@@ -16,7 +16,7 @@ def plot_regression_line(title, features, target, predictions, save_path):
     plt.plot(features, predictions, label='Regression Line', color='red')  # Regression line
     plt.xlabel("Features")
     plt.ylabel("Target/Predictions")
-    plt.title("Regression Plot: " + title)
+  #  plt.title("Regression Plot: " + title)
     plt.legend()
     plt.grid(True)
     plt.savefig(save_path)
@@ -31,7 +31,7 @@ def plot_loss_history(title, loss_history, save_path):
     plt.plot(loss_history, label='Training Loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
-    plt.title('Training Loss History: ' + title)
+   # plt.title('Training Loss History: ' + title)
     plt.legend()  # Add a legend
     plt.grid(True)  # Add grid lines
     plt.savefig(save_path)
@@ -55,7 +55,7 @@ def plot_grouped_bar_comparisons(data, metrics, dataset_sizes, platforms, save_p
             ax.bar_label(rects, padding=3, fontsize=8)  # Add labels to bars
 
         ax.set_ylabel(metric)
-        ax.set_title(f'{metric} Comparison across Dataset Sizes')
+     #   ax.set_title(f'{metric} Comparison across Dataset Sizes')
         ax.set_xticks(x)
         ax.set_xticklabels(dataset_sizes)
         ax.legend()
@@ -92,7 +92,7 @@ def process_json_files(root_folder):
     """
     metrics = ["training_time", "inference_time", "mse", "r2"]
     platform_folders = [f for f in os.listdir(root_folder) if os.path.isdir(os.path.join(root_folder, f))]
-    predefined_platforms = ["python_gpu", "rust_wasm_cpu", "tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm"]
+    predefined_platforms = ["tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm", "rust_wasm_cpu", "python_gpu"]
 
     first_platform_folder = os.path.join(root_folder, platform_folders[0])
     json_files = [re.search(r'(\d+%)', f.name).group(1) for f in Path(first_platform_folder).iterdir() if f.is_file() and f.suffix == '.json' and (f.stem.endswith('_10%') or f.stem.endswith('_50%') or f.stem.endswith('_100%'))]
@@ -227,23 +227,23 @@ def save_confidence_interval(data, location):
                 # Add the confidence interval for the current metric
                 if metric == "training_time":
                     json_data[platform][percentage]["training_time"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "inference_time":
                     json_data[platform][percentage]["inference_time"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "mse":
                     json_data[platform][percentage]["mse"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
                 elif metric == "r2":
                     json_data[platform][percentage]["r2"] = {
-                        "ci_lower": ci_lower,
-                        "ci_upper": ci_upper
+                        "ci_lower": round(ci_lower, 2),
+                        "ci_upper": round(ci_upper, 2)
                     }
 
     # Print the resulting JSON

@@ -335,111 +335,123 @@
                                 <tr x-show="item.show_metric">
                                     <td colspan="5">
                                         <h1  x-show="item.show_metric_lr" class="title text-sm">Linear Regression Confidence Interval</h1>
-                                        <table x-show="item.show_metric_lr" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
+                                        <table x-show="item.show_metric_lr" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
                                             <thead class="bg-blue-200">
                                                 <tr>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-left">
                                                         Platform</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Dataset</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Training Time</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Inference Time</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         MSE</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         R2
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
-                                                <template x-if="item.lr_confidence_interval"  x-for="(platform, ci_idx) in Object.keys(item.lr_confidence_interval??{})" :key="ci_idx">
-                                                    <template x-for="(dataset, ds_idx) in Object.keys(item.lr_confidence_interval[platform])" :key="ds_idx">
-                                                        <tr
-                                                            :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
-                                                                x-html="platform"></td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
-                                                                x-html="dataset"></td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].training_time.ci_lower"></div>
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].training_time.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].inference_time.ci_lower"></div>
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].inference_time.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].mse.ci_lower"></div>
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].mse.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].r2.ci_lower"></div>
-                                                                <div x-html="item.lr_confidence_interval[platform][dataset].r2.ci_upper"></div>
-                                                            </td>
-                                                        </tr>
+                                                <template x-if="item.show_metric_lr == true">
+                                                    <template x-for="(ci, ds_idx) in item.lr_confidence_interval" :key="ds_idx">
+                                                        <template x-if="ds_idx != undefined">
+                                                            <tr x-show="ci.platform"
+                                                                :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700 text-left"
+                                                                    x-html="ci.platform"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
+                                                                    x-html="ci.dataset_size"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.training_time.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.training_time.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.inference_time.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.inference_time.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                    <div x-html="ci.mse.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.mse.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                    <div x-html="ci.r2.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.r2.ci_upper"></div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
                                                     </template>
-                                                </template>
+                                                </template> 
                                             </tbody>
                                         </table> 
                                         <h1 x-show="item.show_metric_nn" class="title text-sm">Neural Network Confidence Interval</h1>
-                                        <table x-show="item.show_metric_nn" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
+                                        <table x-show="item.show_metric_nn" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
                                             <thead class="bg-blue-200">
                                                 <tr>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-left">
                                                         Platform</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Dataset</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Training Time</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Inference Time</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Accuracy</th>
                                                     <th
-                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Loss
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
-                                                <template x-if="item.nn_confidence_interval" x-for="(platform, ci_idx) in Object.keys(item.nn_confidence_interval??{})" :key="ci_idx">
-                                                    <template x-for="(dataset, ds_idx) in Object.keys(item.nn_confidence_interval[platform])" :key="ds_idx">
-                                                        <tr
-                                                            :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
-                                                                x-html="platform"></td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
-                                                                x-html="dataset"></td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].training_time.ci_lower"></div>
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].training_time.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].inference_time.ci_lower"></div>
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].inference_time.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].accuracy.ci_lower"></div>
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].accuracy.ci_upper"></div>
-                                                            </td>
-                                                            <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].loss.ci_lower"></div>
-                                                                <div x-html="item.nn_confidence_interval[platform][dataset].loss.ci_upper"></div>
-                                                            </td>
-                                                        </tr>
+                                                <template x-if="item.show_metric_nn == true">
+                                                    <template x-for="(ci, ds_idx) in item.nn_confidence_interval" :key="ds_idx">
+                                                        <template x-if="ds_idx != undefined">
+                                                            <tr x-show="ci.platform"
+                                                                :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700 text-left"
+                                                                    x-html="ci.platform"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
+                                                                    x-html="ci.dataset_size"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.training_time.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.training_time.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.inference_time.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.inference_time.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                    <div x-html="ci.accuracy.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.accuracy.ci_upper"></div>
+                                                                </td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                    <div x-html="ci.loss.ci_lower"></div>
+                                                                    <div>< μ <</div>
+                                                                    <div x-html="ci.loss.ci_upper"></div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
                                                     </template>
                                                 </template>
                                             </tbody>
@@ -707,6 +719,47 @@
             document.getElementById('tries').disabled = isDisabled;
         }
 
+        // Function to sort the keys of the confidence_interval object
+        function transformData(data) {
+
+            const platformOrder = ["tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm", "rust_wasm_cpu", "python_gpu"];
+            const datasetOrder = ['10%', '50%', '100%'];
+            
+            let result = [];
+
+            // Iterate over the platform order
+            platformOrder.forEach(platform => {
+                if (data[platform]) {
+                    // Iterate over the dataset sizes according to datasetOrder
+                    datasetOrder.forEach(datasetSize => {
+                        if (data[platform][datasetSize]) {
+                            let entry = {
+                                platform: platform.replace(/_/g, ' '), // Format platform name for readability
+                                dataset_size: datasetSize,
+                                training_time: data[platform][datasetSize].training_time,
+                                inference_time: data[platform][datasetSize].inference_time
+                            };
+                            if(data[platform][datasetSize].mse){
+                                entry["mse"] = data[platform][datasetSize].mse;
+                            }
+                            if(data[platform][datasetSize].r2){
+                                entry["r2"] = data[platform][datasetSize].r2;
+                            }
+                            if(data[platform][datasetSize].accuracy){
+                                entry["accuracy"] = data[platform][datasetSize].accuracy;
+                            }
+                            if(data[platform][datasetSize].loss){
+                                entry["loss"] = data[platform][datasetSize].loss;
+                            }
+                            result.push(entry);
+                        }
+                    });
+                }
+            });
+
+            return result;
+        }
+
     </script>
 
 
@@ -728,6 +781,16 @@
             });
         });
 
+        async function plotAll() {
+            const end = new Date();
+            await updateResultItem({
+                end: end,
+                result_item_id: currentResultItem.id
+            });
+            await plotLinearRegression();
+            await plotNeuralNetwork();
+        }
+
         async function runAll(lastExecutedExperiment) {
             if(runAllProcessing == true){
                 return;
@@ -745,14 +808,10 @@
 
             if (lastExecutedExperiment >= totalExecutions) {
                 console.log("All done!");
-                const end = new Date();
-                await updateResultItem({
-                    end: end,
-                    result_item_id: currentResultItem.id
-                });
-                await plotLinearRegression();
-                await plotNeuralNetwork();
+                startProcess(document.getElementById('run-all'));
+                await plotAll();
                 runAllProcessing = false;
+                stopProcess(document.getElementById('run-all'));
                 return;
             }
  
@@ -801,6 +860,7 @@
                  location.href = 'blank.html?dt=' + new Date();
             }
 
+            await plotAll();
             runAllProcessing = false;
         }
         window.runAll = runAll;
@@ -911,7 +971,8 @@
                         .sort((a, b) => a.try - b.try)
                         .reverse();
 
-                    result.confidence_interval = {};
+                    result.lr_confidence_interval = [];
+                    result.nn_confidence_interval = [];
                 });
 
                 this.data = resultList; 
@@ -932,21 +993,21 @@
                 
                 if(firstExperiment.type.indexOf('L') == 0){
                     var ci = await getConfidenceInterval(firstLocation);
+                    operation.lr_confidence_interval.push(...transformData(ci));
                     operation.show_metric_lr = true;
-                    operation.lr_confidence_interval = ci;
                 }
                 if(firstExperiment.type.indexOf('N') == 0){
                     var ci = await getConfidenceInterval(firstLocation);
+                    operation.nn_confidence_interval.push(...transformData(ci));
                     operation.show_metric_nn = true;
-                    operation.nn_confidence_interval = ci;
                 }
 
-                var lastExperiment = operation.experiments[operation.experiments.length -1].experiments[0];
-                var lastLocation = firstExperiment.location + '/confidence_interval_metric.json'; 
+                var lastExperiment = operation.experiments[0].experiments[operation.experiments[0].experiments.length - 1];
+                var lastLocation = lastExperiment.location + '/confidence_interval_metric.json'; 
                 if(firstExperiment.type.indexOf('L') != lastExperiment.type.indexOf('L')){
                     var ci = await getConfidenceInterval(lastLocation);
+                    operation.nn_confidence_interval.push(...transformData(ci));
                     operation.show_metric_nn = true;
-                    operation.nn_confidence_interval = ci;
                 }
             }
         };
