@@ -45,7 +45,7 @@ source .venv/bin/activate
 ### 3. Install Requirements
 
 ```bash
-pip install 'tensorflow[and-cuda]'          # For NVIDIA GPU support (optional, slow to install)
+pip install 'tensorflow[and-cuda]'          # For NVIDIA GPU support (slow to install)
 pip install pandas matplotlib scikit-learn
 ```
 
