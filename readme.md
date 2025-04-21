@@ -103,9 +103,9 @@ thesis-ml/
 │   ├── plot/
 │   │   └── linear_regression_plot.py               # Plots the graphs and stores metrics of the results
 │   └── training_result/                            # Directory structure for storing results based on process ID and platform
-│       └── [process]                               # [proccess] is an id of the running process,
-│           ├── [try]/[platform]                    # [try] is the current try, [platform] is the platform being executed
-│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files
+│       └── [process]/                              # [proccess] is an id of the running process,
+│           ├── [try]/[platform]/                   # [try] is the current try, [platform] is the platform being executed
+│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files for each dataset size
 │           └── confidence_interval_metric.json     # Stores the confidence interval for metrics across all tries
 │
 ├── neural_network/
@@ -133,9 +133,9 @@ thesis-ml/
 │   ├── plot/
 │   │   └── neural_network_plot.py
 │   └── training_result/                            # Directory structure for storing results based on process ID and platform
-│       └── [process]                               # [proccess] is an id of the running process,
-│           ├── [try]/[platform]                    # [try] is the current try, [platform] is the platform being executed
-│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files
+│       └── [process]/                              # [proccess] is an id of the running process,
+│           ├── [try]/[platform]/                   # [try] is the current try, [platform] is the platform being executed
+│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files for each dataset size
 │           └── confidence_interval_metric.json     # Stores the confidence interval for metrics across all tries
 │
 ├── index.html                  # Main interface
