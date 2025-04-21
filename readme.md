@@ -30,6 +30,11 @@ thesis-ml/neural_network/datasets/mnist_train_images.rar
 
 ### 2. Set Up Python Environment
 
+> 💡 Make sure Python 3.10+ is installed.  
+> You can download it from the [official Python website](https://www.python.org/downloads/).
+
+To create and activate a virtual environment:
+
 ```bash
 python -m venv .venv                         # Create virtual environment
 
