@@ -68,65 +68,6 @@ python server.py
 
 ## 📁 Project Structure
 
-
-- **assets**
-  - `alpine_interface.js`: Alpine component to generate the grid based on data
-  - `app.js`: Manages API calls to the server and general functions
-  - `module_binding.js`: Binds the modules for the runAll function
-  - `style.css`: Basic styles for the interface
-
-- **linear_regression**
-  - **app/python**
-    - `linear_Regression.py`: Python script for training the linear regression model using TensorFlow
-  - **rust_wasm**
-    - **pkg**
-      - `rust_wasm_bg.wasm`: WASM binary for running the model in the browser
-      - `rust_wasm.js`: JavaScript code to run the WASM
-    - **src**
-      - `lib.rs`: Rust code for the linear regression model
-      - `rust_wasm_app.js`: Binds buttons from interface to call the WASM
-  - **tensorflow_js**
-    - `tensorflow_js_app.js`: Binds buttons for training the model with TensorFlow.js
-  - **datasets**
-    - `house_price/`: Contains datasets for house rent price training
-      - `sample_10%.csv`
-      - `sample_50%.csv`
-      - `sample_100%.csv`
-  - **plot**
-    - `linear_regression_plot.py`: Plots the graphs and stores metrics of the results
-  - **training_result**
-    - `[1]/[1]/[platform]`: Directory structure for storing results based on transaction ID and platform
-    - `confidence_interval_metric.json`: Stores the confidence interval for metrics across all tries
-
-- **neural_network**
-  - **app/python**
-    - `neural_network.py`: Python script for training the neural network using TensorFlow
-  - **rust_wasm**
-    - **pkg**
-      - `rust_wasm_bg.wasm`: WASM binary for running the neural network in the browser
-      - `rust_wasm.js`: JavaScript code to run the WASM
-    - **src**
-      - `lib.rs`: Rust code for the neural network model
-      - `rust_wasm_app.js`: Binds buttons from interface to call the WASM
-  - **tensorflow_js**
-    - `tensorflow_js_app.js`: Binds buttons for training the model with TensorFlow.js
-  - **datasets**
-    - `mnist/`: Dataset for the neural network training
-      - `mnist_train_images.json`
-      - `mnist_train_labels.json`
-  - **plot**
-    - `neural_network_plot.py`: Plots the graphs and stores metrics of the results
-  - **training_result**
-    - `[1]/[1]/[platform]`: Directory structure for storing results based on transaction ID and platform
-    - `confidence_interval_metric.json`: Stores the confidence interval for metrics across all tries
-
-- `blank.html`: Used for certain scenarios where there is an exception and redirects to clean resources
-- `index.html`: The main interface to train the datasets
-- `README.md`: Explanation of the application
-- `result_list.json`: Database to store training status
-- `server.py`: Runs the website and API for executing features
-
-
 ```
 thesis-ml/
 │
@@ -156,9 +97,11 @@ thesis-ml/
 │   │       └── sample_100%.csv
 │   ├── plot/
 │   │   └── linear_regression_plot.py               # Plots the graphs and stores metrics of the results
-│   └── training_result/                            # Directory structure for storing results based on transaction ID and platform
-│       ├── [transaction]/[try]/[platform]/
-│       └── [transaction]/confidence_interval_metric.json       # Stores the confidence interval for metrics across all tries
+│   └── training_result/                            # Directory structure for storing results based on process ID and platform
+│       └── [process]                               # [proccess] is an id of the running process,
+│           ├── [try]/[platform]                    # [try] is the current try, [platform] is the platform being executed
+│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files
+│           └── confidence_interval_metric.json     # Stores the confidence interval for metrics across all tries
 │
 ├── neural_network/
 │   ├── app/
@@ -173,15 +116,22 @@ thesis-ml/
 │   │       └── rust_wasm_app.js                    # Binds buttons from interface to call the WASM
 │   ├── tensorflow_js/
 │   │   └── tensorflow_js_app.js                    # Binds buttons for training the model with TensorFlow.js
-│   ├── datasets/
-│   │   └── mnist/                                  # Dataset for the neural network training
-│   │       ├── mnist_train_images.json
-│   │       └── mnist_train_labels.json
+│   ├── datasets/                                   # Dataset for the neural network training
+│   │   ├── nab/                                    # this folder holds the samples to train the model for mnist dataset to be used in rust
+│   │   │   ├── mnsit_iamges.nab
+│   │   │   └── mnist_labels.nab
+│   │   ├── mnist_test_images.json
+│   │   ├── mnist_test_labels.json
+│   │   ├── mnist_train_images.json
+│   │   ├── mnist_train_images.rar                  # this is a rar holding mnist_train_images.json to reduce the size and can be uploaded on github
+│   │   └── mnist_train_labels.json
 │   ├── plot/
 │   │   └── neural_network_plot.py
-│   └── training_result/
-│       ├── [transaction]/[try]/[platform]/
-│       └── [transaction]/confidence_interval_metric.json       # Stores the confidence interval for metrics across all tries
+│   └── training_result/                            # Directory structure for storing results based on process ID and platform
+│       └── [process]                               # [proccess] is an id of the running process,
+│           ├── [try]/[platform]                    # [try] is the current try, [platform] is the platform being executed
+│           │   └── [comparisons graph|metric]      # here keeps comparison graphs and metric data files
+│           └── confidence_interval_metric.json     # Stores the confidence interval for metrics across all tries
 │
 ├── index.html                  # Main interface
 ├── blank.html                  # Redirect fallback on error
