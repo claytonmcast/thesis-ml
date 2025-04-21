@@ -1,0 +1,22 @@
+{
+    "tensorflow_js_webgpu": {
+        "10%": {
+            "training_time": {
+                "ci_lower": -13.38,
+                "ci_upper": 46.46
+            },
+            "inference_time": {
+                "ci_lower": 0.04,
+                "ci_upper": 0.09
+            },
+            "mse": {
+                "ci_lower": 3164099022.89,
+                "ci_upper": 3173528283.78
+            },
+            "r2": {
+                "ci_lower": 0.59,
+                "ci_upper": 0.59
+            }
+        }
+    }
+}

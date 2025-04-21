@@ -1,0 +1,2 @@
+Platform,Dataset Size,Training Time (ms),Inference Time (ms),MSE,R2
+tensorflow_js_webgpu,10%,3.4097,0.0766,3175558400,0.5871908068656921

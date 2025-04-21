@@ -1,5 +1,7 @@
 import os
 import json
+import matplotlib
+matplotlib.use('Agg')  # Non-GUI backend
 import matplotlib.pyplot as plt
 import re
 import numpy as np

@@ -16,90 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <style>
-        button:disabled {
-            background-color: #d3d3d3;
-            color: #777;
-            cursor: not-allowed;
-        }
-
-        /* Processing button style */
-        button.processing {
-            position: relative;
-        }
-
-        button.processing::after {
-            content: "";
-            width: 12px;
-            height: 12px;
-            border: 2px solid #777;
-            border-top-color: transparent;
-            border-radius: 50%;
-            position: absolute;
-            right: -16px;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: spin 1s linear infinite;
-        }
-
-        button.processing .process-number {
-            display: block;
-            width: 12px;
-            height: 12px;
-            border-top-color: transparent;
-            position: absolute;
-            right: -14px;
-            top: 50%;
-            text-align: center;
-        }
-
-        .process-number {
-            display: none;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: translateY(-50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(-50%) rotate(360deg);
-            }
-        }
-
-        .title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-align: center;
-            color: #1e293b;
-            /* Dark blue-gray */
-            margin: 20px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-            width: 100%;
-        }
-
-        .title.text-sm{
-            font-size: .875rem;
-            line-height: 1.25rem;
-        }
-
-        .title::after {
-            content: "";
-            width: 60px;
-            height: 4px;
-            background: #4f46e5;
-            /* Nice blue accent */
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/style.css" />
 </head>
 
 <body class="bg-gray-100">
@@ -287,9 +204,10 @@
                         Run All
                     </button>
                 </div>
-                <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()" :class="{ 'initialized': initialized }">
-                    <!-- <button id="refresh-result-grid-component" style="display: none;" @click="init()"></button> -->
-                    <button id="refresh-result-grid-component" style="display: none;"></button>
+                <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()"
+                    :class="{ 'initialized': initialized }">
+                    <button id="refresh-result-grid-component" style="display: none;" @click="init()"></button>
+                    <!-- <button id="refresh-result-grid-component" style="display: none;"></button> -->
                     <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
                         <thead class="bg-gray-100">
                             <tr>
@@ -334,8 +252,10 @@
                                 </tr>
                                 <tr x-show="item.show_metric">
                                     <td colspan="5">
-                                        <h1  x-show="item.show_metric_lr" class="title text-sm">Linear Regression Confidence Interval</h1>
-                                        <table x-show="item.show_metric_lr" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
+                                        <h1 x-show="item.show_metric_lr" class="title text-sm">Linear Regression
+                                            Confidence Interval</h1>
+                                        <table x-show="item.show_metric_lr"
+                                            class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
                                             <thead class="bg-blue-200">
                                                 <tr>
                                                     <th
@@ -361,7 +281,8 @@
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
                                                 <template x-if="item.show_metric_lr == true">
-                                                    <template x-for="(ci, ds_idx) in item.lr_confidence_interval" :key="ds_idx">
+                                                    <template x-for="(ci, ds_idx) in item.lr_confidence_interval"
+                                                        :key="ds_idx">
                                                         <template x-if="ds_idx != undefined">
                                                             <tr x-show="ci.platform"
                                                                 :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
@@ -369,34 +290,46 @@
                                                                     x-html="ci.platform"></td>
                                                                 <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
                                                                     x-html="ci.dataset_size"></td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.training_time.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.training_time.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.training_time.ci_upper">
+                                                                            </div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.inference_time.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.inference_time.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.inference_time.ci_upper">
+                                                                            </div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.mse.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.mse.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.mse.ci_upper"></div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.r2.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.r2.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.r2.ci_upper"></div>
                                                                 </td>
                                                             </tr>
                                                         </template>
                                                     </template>
-                                                </template> 
+                                                </template>
                                             </tbody>
-                                        </table> 
-                                        <h1 x-show="item.show_metric_nn" class="title text-sm">Neural Network Confidence Interval</h1>
-                                        <table x-show="item.show_metric_nn" class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
+                                        </table>
+                                        <h1 x-show="item.show_metric_nn" class="title text-sm">Neural Network Confidence
+                                            Interval</h1>
+                                        <table x-show="item.show_metric_nn"
+                                            class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
                                             <thead class="bg-blue-200">
                                                 <tr>
                                                     <th
@@ -422,7 +355,8 @@
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
                                                 <template x-if="item.show_metric_nn == true">
-                                                    <template x-for="(ci, ds_idx) in item.nn_confidence_interval" :key="ds_idx">
+                                                    <template x-for="(ci, ds_idx) in item.nn_confidence_interval"
+                                                        :key="ds_idx">
                                                         <template x-if="ds_idx != undefined">
                                                             <tr x-show="ci.platform"
                                                                 :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
@@ -430,25 +364,35 @@
                                                                     x-html="ci.platform"></td>
                                                                 <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
                                                                     x-html="ci.dataset_size"></td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.training_time.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.training_time.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.training_time.ci_upper">
+                                                                            </div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.inference_time.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.inference_time.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.inference_time.ci_upper">
+                                                                            </div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.accuracy.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.accuracy.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.accuracy.ci_upper"></div>
                                                                 </td>
-                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"> 
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
                                                                     <div x-html="ci.loss.ci_lower"></div>
-                                                                    <div>< μ <</div>
-                                                                    <div x-html="ci.loss.ci_upper"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.loss.ci_upper"></div>
                                                                 </td>
                                                             </tr>
                                                         </template>
@@ -488,7 +432,7 @@
                                             </thead>
                                             <template x-for="(group) in item.experiments" :key="group.try">
                                                 <template x-for="(exp, exindex) in group.experiments" :key="exindex">
-                                                    <tbody class="divide-y divide-gray-200"> 
+                                                    <tbody class="divide-y divide-gray-200">
                                                         <tr x-show="exindex == 0">
                                                             <td colspan="6"
                                                                 class="bg-gray-100 text-center px-4 py-2 text-sm text-gray-700 font-medium border-b">
@@ -503,27 +447,49 @@
                                                         <template x-if="exindex == 0 && group.show_graphs == true">
                                                             <tr x-show="exindex == 0 && group.show_graphs == true">
                                                                 <td colspan="6">
-                                                                    <div x-show="group.experiments[0].type.indexOf('L') == 0">
+                                                                    <div
+                                                                        x-show="group.experiments[0].type.indexOf('L') == 0">
                                                                         <h2 class="title">Linear Regression</h2>
-                                                                        <h3 class="title text-sm">Training Time VS Dataset Size</h3>
-                                                                        <img :src="exp.try_path + '/training_time_comparison.png'" />
-                                                                        <h3 class="title text-sm">Inference Time VS Dataset Size</h3>
-                                                                        <img :src="exp.try_path + '/inference_time_comparison.png'" />
-                                                                        <h3 class="title text-sm" x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'"></h3>
-                                                                        <img :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
-                                                                        <h3 class="title text-sm" x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'"></h3>
-                                                                        <img :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
+                                                                        <h3 class="title text-sm">Training Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/training_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Inference Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/inference_time_comparison.png'" />
+                                                                        <h3 class="title text-sm"
+                                                                            x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'">
+                                                                        </h3>
+                                                                        <img
+                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
+                                                                        <h3 class="title text-sm"
+                                                                            x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'">
+                                                                        </h3>
+                                                                        <img
+                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
                                                                     </div>
-                                                                    <div x-show="group.experiments[group.experiments.length -1 ].type.indexOf('N') == 0">
+                                                                    <div
+                                                                        x-show="group.experiments[group.experiments.length -1 ].type.indexOf('N') == 0">
                                                                         <h2 class="title">Neural Network</h2>
-                                                                        <h3 class="title text-sm">Training Time VS Dataset Size</h3>
-                                                                        <img :src="exp.try_path + '/training_time_comparison.png'" />
-                                                                        <h3 class="title text-sm">Inference Time VS Dataset Size</h3>
-                                                                        <img :src="exp.try_path + '/inference_time_comparison.png'" />
-                                                                        <h3 class="title text-sm" x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'"></h3>
-                                                                        <img :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
-                                                                        <h3 class="title text-sm" x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'"></h3>
-                                                                        <img :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
+                                                                        <h3 class="title text-sm">Training Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/training_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Inference Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/inference_time_comparison.png'" />
+                                                                        <h3 class="title text-sm"
+                                                                            x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'">
+                                                                        </h3>
+                                                                        <img
+                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
+                                                                        <h3 class="title text-sm"
+                                                                            x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'">
+                                                                        </h3>
+                                                                        <img
+                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -573,7 +539,7 @@
                                                                         <h3 class="title text-sm">Accuracy</h3>
                                                                         <img
                                                                             :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_accuracy.png`" />
-                                                                            <h3 class="title text-sm">Loss</h3>
+                                                                        <h3 class="title text-sm">Loss</h3>
                                                                         <img
                                                                             :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_loss.png`" />
                                                                     </div>
@@ -595,434 +561,13 @@
     </div>
 
 
-    <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        var currentResultItem = null;
-        var executionTries = 1;
-        var runAllProcessing = false;
-
-
-        async function startProcessing(el, process, position) { 
-
-            var tries = Number(document.getElementById("tries").value);
-            var pinExecutionTries = executionTries;
-            for (let i = pinExecutionTries; i < tries; i++) {
-                executionTries = i + 1;
-                el.querySelector('.process-number').innerHTML = (tries + 1 - executionTries);
-
-                // await sleep(1000); // Wait for 1 second (1000 ms) to release resources
-                await process();
-                await sleep(1000);
-               // location.href = 'blank.html';
-            }
-            executionTries = 0;
-            var end = new Date();
-            if (runAllProcessing != true) {
-                await updateResultItem({ 
-                    end,
-                    result_item_id: currentResultItem.id
-                });
-            }
-        }
-
-        async function plotLinearRegression() {
-            var tries = Number(document.getElementById("tries").value);
-            const response = await fetch("/api/plot_linear_regression?id=" + currentResultItem.id + "&tries=" + tries);
-            const data = await response.json();
-            return data;
-        }
-
-        async function plotNeuralNetwork() {
-            var tries = Number(document.getElementById("tries").value);
-            const response = await fetch("/api/plot_neural_network?id=" + currentResultItem.id + "&tries=" + tries);
-            const data = await response.json();
-            return data;
-        }
-
-
-        async function getResultList() {
-            const response = await fetch("/result_list.json");
-            const data = await response.json();
-            return data;
-        }
-
-        async function getConfidenceInterval(location) {
-            const response = await fetch(location);
-            const data = await response.json();
-            return data;
-        }
-
-        async function getNewResultItem(is_run_all) {
-            var tries = Number(document.getElementById("tries").value);
-            const response = await fetch("/api/new_result_item?tries=" + tries + "&isRunAll=" + (is_run_all == true) + "&start=" + (new Date()).toISOString());
-            const data = await response.json();
-            ///
-            currentResultItem = data; 
-            document.querySelector('#refresh-result-grid-component').click();
-            ///
-            return data;
-        }
-
-        async function updateResultItem(resultItem) {
-
-            const response = await fetch("/api/update_result_item", {
-                method: "POST", // Specifies the request method
-                headers: {
-                    "Content-Type": "application/json" // Tells the server that the request body is JSON
-                },
-                body: JSON.stringify(resultItem) // Convert the data object to a JSON string
-            });
-
-            // Parse the response as JSON
-            const responseData = await response.json();
-            document.querySelector('#refresh-result-grid-component').click()
-            return responseData;
-        }
-
-
-        async function appendExperiment(experiment) {
-
-            const response = await fetch("/api/append_experiment", {
-                method: "POST", // Specifies the request method
-                headers: {
-                    "Content-Type": "application/json" // Tells the server that the request body is JSON
-                },
-                body: JSON.stringify(experiment) // Convert the data object to a JSON string
-            });
-
-            // Parse the response as JSON
-            const responseData = await response.json();
-            document.querySelector('#refresh-result-grid-component').click()
-            return responseData;
-        }
-
-        function startProcess(el) {
-            disable_enable_buttons(true);
-            el.classList.add("processing");
-        }
-
-        function stopProcess(el) {
-            disable_enable_buttons(false);
-            el.classList.remove("processing");
-            document.querySelector('#refresh-result-grid-component').click()
-        }
-        function disable_enable_buttons(isDisabled) {
-            document.querySelectorAll('button').forEach(element => {
-                element.disabled = isDisabled;
-                if (isDisabled == false) {
-                    element.classList.remove("processing");
-                }
-            });
-            document.getElementById('tries').disabled = isDisabled;
-        }
-
-        // Function to sort the keys of the confidence_interval object
-        function transformData(data) {
-
-            const platformOrder = ["tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm", "rust_wasm_cpu", "python_gpu"];
-            const datasetOrder = ['10%', '50%', '100%'];
-            
-            let result = [];
-
-            // Iterate over the platform order
-            platformOrder.forEach(platform => {
-                if (data[platform]) {
-                    // Iterate over the dataset sizes according to datasetOrder
-                    datasetOrder.forEach(datasetSize => {
-                        if (data[platform][datasetSize]) {
-                            let entry = {
-                                platform: platform.replace(/_/g, ' '), // Format platform name for readability
-                                dataset_size: datasetSize,
-                                training_time: data[platform][datasetSize].training_time,
-                                inference_time: data[platform][datasetSize].inference_time
-                            };
-                            if(data[platform][datasetSize].mse){
-                                entry["mse"] = data[platform][datasetSize].mse;
-                            }
-                            if(data[platform][datasetSize].r2){
-                                entry["r2"] = data[platform][datasetSize].r2;
-                            }
-                            if(data[platform][datasetSize].accuracy){
-                                entry["accuracy"] = data[platform][datasetSize].accuracy;
-                            }
-                            if(data[platform][datasetSize].loss){
-                                entry["loss"] = data[platform][datasetSize].loss;
-                            }
-                            result.push(entry);
-                        }
-                    });
-                }
-            });
-
-            return result;
-        }
-
-    </script>
-
-
+    <script src="/assets/app.js"></script> 
     <script type="module" src="/linear_regression/app/tensorflow_js/tensorflow_js_app.js"></script>
     <script type="module" src="/linear_regression/app/rust_wasm/src/rust_wasm_app.js"></script>
     <script type="module" src="/neural_network/app/tensorflow_js/tensorflow_js_app.js"></script>
-    <script type="module" src="/neural_network/app/rust_wasm/src/rust-wasm-app.js"></script>
-
-    <script type="module">
-        import handleLinearRegression from '/linear_regression/app/tensorflow_js/tensorflow_js_app.js'
-        import handleLinearRegressionRustWasm from '/linear_regression/app/rust_wasm/src/rust_wasm_app.js'
-        import handleNeuralNetwork from '/neural_network/app/tensorflow_js/tensorflow_js_app.js';
-        import handleNeuralNetworkRustWasm from '/neural_network/app/rust_wasm/src/rust-wasm-app.js';
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            var el = document.getElementById('run-all');
-            el.addEventListener("click", async () => {
-                await runAll();
-            });
-        });
-
-        async function plotAll() {
-            const end = new Date();
-            await updateResultItem({
-                end: end,
-                result_item_id: currentResultItem.id
-            });
-            await plotLinearRegression();
-            await plotNeuralNetwork();
-        }
-
-        async function runAll(lastExecutedExperiment) {
-            if(runAllProcessing == true){
-                return;
-            }
-            runAllProcessing = true;
-            const tries = Number(document.getElementById("tries").value);
-            const totalButtons = 30;
-            
-            const totalExecutions = totalButtons * tries;
-
-            if (lastExecutedExperiment === undefined) {
-                await getNewResultItem(true);
-                lastExecutedExperiment = 0;
-            } 
-
-            if (lastExecutedExperiment >= totalExecutions) {
-                console.log("All done!");
-                startProcess(document.getElementById('run-all'));
-                await plotAll();
-                runAllProcessing = false;
-                stopProcess(document.getElementById('run-all'));
-                return;
-            }
- 
-            const buttonIndex = Math.floor(lastExecutedExperiment / tries); 
-
-            // Collect all button elements in the same order as your totalButtons count (30)
-            const allButtons = [
-                ...document.querySelectorAll("button.lr-tf"),
-                ...document.querySelectorAll("button.lr-wasm"),
-                ...document.querySelectorAll("button.lr-python"),
-                ...document.querySelectorAll("button.mnist-tf"),
-                ...document.querySelectorAll("button.mnist-wasm"),
-                ...document.querySelectorAll("button.mnist-python")
-            ];
-
-            // Safeguard check
-            if (buttonIndex >= allButtons.length) {
-                console.error("Index out of range: nextIndex is too large.");
-                return;
-            }
-
-            const executionIndexForThisButton = lastExecutedExperiment % tries;
-            executionTries = executionIndexForThisButton;
-             
-            try {
-                // Call appropriate handler based on button class
-                for (let i = buttonIndex; i < allButtons.length; i++) {
-                    const button = allButtons[i];
-                    const executionIndexForThisButton = i; // update if needed differently
-
-                    if (button.classList.contains("lr-tf")) {
-                        await handleLinearRegression(button, executionIndexForThisButton);
-                    } else if (button.classList.contains("lr-wasm")) {
-                        await handleLinearRegressionRustWasm(button, executionIndexForThisButton);
-                    } else if (button.classList.contains("lr-python")) {
-                        await handleLinearRegressionPython(button, executionIndexForThisButton);
-                    } else if (button.classList.contains("mnist-tf")) {
-                        await handleNeuralNetwork(button, executionIndexForThisButton);
-                    } else if (button.classList.contains("mnist-wasm")) {
-                        await handleNeuralNetworkRustWasm(button, executionIndexForThisButton);
-                    } else if (button.classList.contains("mnist-python")) {
-                        await handleNeuralNetworkPython(button, executionIndexForThisButton);
-                    }
-                }
-            }catch(ex){
-                 location.href = 'blank.html?dt=' + new Date();
-            }
-
-            await plotAll();
-            runAllProcessing = false;
-        }
-        window.runAll = runAll;
-
-        async function runPython(type, dataset, sample) {
-            var tries = Number(document.getElementById("tries").value);
-            const response = await fetch(`/api/run_python?type=${type}&try=${executionTries}&sample=${sample}&dataset=${dataset}&result_item_id=${currentResultItem.id}`);
-            const data = await response.json();
-        }
-
-        async function handleLinearRegressionPython(el, position) {
-            var dataset = el.getAttribute('dataset');
-            var engine = el.getAttribute('engine');
-            var sample = el.getAttribute('sample');
-
-            startProcess(el);
-            if (runAllProcessing != true) {
-                await getNewResultItem();
-            }
-            await startProcessing(el, async () => await runPython("Linear Regression Python GPU", dataset, sample), position);
-            if (runAllProcessing != true) {
-                await plotLinearRegression();
-            }
-            stopProcess(el);
-        }
-
-        async function handleNeuralNetworkPython(el, position) {
-            var dataset = el.getAttribute('dataset');
-            var engine = el.getAttribute('engine');
-            var sample = el.getAttribute('sample');
-
-            startProcess(el);
-            if (runAllProcessing != true) {
-                await getNewResultItem();
-            }
-            await startProcessing(el, async () => await runPython("Neural Network Python GPU", dataset, sample));
-            if (runAllProcessing != true) {
-                await plotNeuralNetwork();
-            }
-            stopProcess(el);
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            Array.from(document.querySelectorAll("button.lr-python")).forEach(el => {
-                el.addEventListener("click", async () => {
-                    await handleLinearRegressionPython(el)
-                });
-            });
-            Array.from(document.querySelectorAll("button.mnist-python")).forEach(el => {
-                el.addEventListener("click", async () => {
-                    await handleNeuralNetworkPython(el);
-                });
-            });
-        });
-
-
-    </script>
-
-    
-<script>
-    var resultGridComponent = {};
-    function bindResultListTable() {
-        resultGridComponent = {
-            data: [],
-            initialized: false,
-            async init() {
-                if (this.initialized) return; // Prevent re-running init if already initialized
-                this.initialized = true;  // Mark as initialized
-                const resultList = await getResultList();
-                if(resultList.length > 0){ 
-                    var resultItem = resultList[resultList.length -1];
-                    var isRunAll = resultItem.isRunAll == 'true';
-                    
-                    if(resultItem.end == undefined){
-                        // needs to continue
-                        document.getElementById("tries").value = resultItem.tries;
-                        currentResultItem = resultItem;
-                        var experiments = resultItem.experiments;
-                        if(isRunAll == true){
-                            var funcRun = false;
-                            do 
-                            {
-                                if (typeof window.runAll === "function") { 
-                                    window.runAll(experiments.length);
-                                    funcRun = true;
-                                }
-                                await sleep(1000);
-                            }while(funcRun == false)
-                            
-                        }
-                    }
-                }
-                resultList.forEach(result => {
-                    // Group experiments by 'try'
-                    const groupedExperiments = result.experiments.reduce((acc, exp) => {
-                        const key = exp.try;
-                        if (!acc[key]) acc[key] = [];
-                        acc[key].push(exp);
-                        return acc;
-                    }, {});
-
-                    // Convert grouped experiments to a sorted array
-                    result.experiments = Object.entries(groupedExperiments)
-                        .map(([tryNumber, experiments]) => ({
-                            try: Number(tryNumber),
-                            experiments: experiments.sort((a,b)=>Number(a.sample.replace('%', '')) - Number(b.sample.replace('%', '')))
-                        }))
-                        .sort((a, b) => a.try - b.try)
-                        .reverse();
-
-                    result.lr_confidence_interval = [];
-                    result.nn_confidence_interval = [];
-                });
-
-                this.data = resultList; 
-
-                // this.data = resultList.map(item => ({
-                //     ...item,
-                //     display_experiments: false
-                // }));
-            },
-            displayExperiments(operation) {
-                operation.display_experiments = !operation.display_experiments;
-                console.log(this.data);
-            },
-            async displayMetrics(operation) {
-                operation.show_metric = !operation.show_metric;
-                var firstExperiment = operation.experiments[0].experiments[0];
-                var firstLocation = firstExperiment.location + '/confidence_interval_metric.json';
-                
-                if(firstExperiment.type.indexOf('L') == 0){
-                    var ci = await getConfidenceInterval(firstLocation);
-                    operation.lr_confidence_interval.push(...transformData(ci));
-                    operation.show_metric_lr = true;
-                }
-                if(firstExperiment.type.indexOf('N') == 0){
-                    var ci = await getConfidenceInterval(firstLocation);
-                    operation.nn_confidence_interval.push(...transformData(ci));
-                    operation.show_metric_nn = true;
-                }
-
-                var lastExperiment = operation.experiments[0].experiments[operation.experiments[0].experiments.length - 1];
-                var lastLocation = lastExperiment.location + '/confidence_interval_metric.json'; 
-                if(firstExperiment.type.indexOf('L') != lastExperiment.type.indexOf('L')){
-                    var ci = await getConfidenceInterval(lastLocation);
-                    operation.nn_confidence_interval.push(...transformData(ci));
-                    operation.show_metric_nn = true;
-                }
-            }
-        };
-        return resultGridComponent;
-    }
-
-</script>
-
-
-    <!-- <script type="module" src="/large-language-model/app//tensorflow_js/tensorflow_js_app.js"></script> -->
-
-    <!--
-    <script type="module" src="/transformer/assets/t-app.js"></script> -->
-
-
+    <script type="module" src="/neural_network/app/rust_wasm/src/rust-wasm-app.js"></script> 
+    <script type="module" src="/assets/module_binding.js"> </script> 
+    <script src="/assets/alpine_interface.js"></script> 
 </body>
 
 </html>
