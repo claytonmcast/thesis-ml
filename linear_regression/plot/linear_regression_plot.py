@@ -63,7 +63,7 @@ def plot_grouped_bar_comparisons(data, metrics, dataset_sizes, platforms, save_p
         fig.tight_layout()
         plt.savefig(os.path.join(save_path, f"{metric}_comparison.png"))  # Save the figure
         plt.close(fig)  # Close the figure to prevent memory issues.
-        print(f"Comparison saved to {os.path.join(save_path, f"{metric}_comparison.png")}")
+        print(f"Comparison saved to {os.path.join(save_path, metric + '_comparison.png')}")
 
 def create_csv(file_name, data):
     """
