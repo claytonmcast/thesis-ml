@@ -134,8 +134,8 @@ thesis-ml/
 │           └── confidence_interval_metric.json     # Stores the confidence interval for metrics across all tries
 │
 ├── index.html                  # Main interface
-├── blank.html                  # Redirect fallback on error
-├── server.py                   # Flask API server
+├── blank.html                  # blank.html is used for certain scenarios where there is an exception and redirects to it to clean resources
+├── server.py                   # Runs the website and api to execute features
 ├── result_list.json            # Training result tracker
 └── README.md                   # This file
 ```
@@ -143,6 +143,9 @@ thesis-ml/
 ---
 
 ## 🧪 Build & Debug WebAssembly (WASM)
+
+> ⚠️ **Note:** You do **not** need to run this to use the app.  
+> This step is only required **if you make code changes in the Rust modules**.
 
 To compile WebAssembly modules from Rust:
 
@@ -156,7 +159,6 @@ wasm-pack build --target web
 
 ---
 
-## 📬 Contact
+## 🎓 Academic Context
 
-Built with ❤️ for my Master's thesis at [Your University Name].  
-If you'd like to discuss the project or collaboration, feel free to reach out!
+Built for my Master's thesis at Malta College of Arts, Science & Technology
