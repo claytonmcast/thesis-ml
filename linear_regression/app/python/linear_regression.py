@@ -39,15 +39,24 @@ def normalize_data(features):
     scaler = StandardScaler()
     normalized_features = scaler.fit_transform(features)
     return normalized_features, scaler
+ 
 
 def evaluate_model(model, features, target, loss_history, training_time, dataset):
     """
     Evaluates the model and returns performance metrics.
     """
     start_time = time.time() 
+
+    # Make the prediction using model.predict (this handles GPU synchronization internally)
     predictions = model.predict(features)
+    # Forces GPU to finish
+    predictions_list = predictions.tolist() 
     end_time = time.time()
+
     inference_time = (end_time - start_time) * 1000  # in milliseconds
+
+    # clear memory if required
+    tf.keras.backend.clear_session()
 
     mse = mean_squared_error(target, predictions)
     r2 = r2_score(target, predictions)
@@ -58,7 +67,7 @@ def evaluate_model(model, features, target, loss_history, training_time, dataset
     return {
         "features": features.tolist(),
         "target": target.tolist(),
-        "predictions": predictions.tolist(),
+        "predictions": predictions_list,
         "loss_history": loss_history,
         "training_time_ms": training_time,
         "inference_time_ms": inference_time,

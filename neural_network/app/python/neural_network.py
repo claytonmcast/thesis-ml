@@ -40,15 +40,20 @@ def load_mnist(train_percentage=1.0):
         'train_labels': train_labels,
         'test_images': test_images,
         'test_labels': test_labels
-    }
+    } 
 
 # Predict a single input and measure inference time
 def predict_and_measure(model, input_tensor):
     start_time = time.time()
+    # Make the prediction using model.predict (this handles GPU synchronization internally)
     predictions = model.predict(input_tensor)
+    # Forces GPU to finish
+    predictions_list = predictions.tolist()
+
     end_time = time.time()
     inference_time = (end_time - start_time) * 1000  # ms
-
+    # clean memory
+    tf.keras.backend.clear_session()
     predicted_class = np.argmax(predictions, axis=1)[0]
     return {'predicted_class': predicted_class, 'inference_time': inference_time}
 

@@ -56,8 +56,9 @@ async function predictAndMeasure(model, inputTensor) {
     const startTime = performance.now();
 
     // Make the prediction using the model
-    const predictions = model.predict(inputTensor);
-
+    const predictions = await model.predict(inputTensor);
+    // make sure prediction received data
+    const predictionList = predictions.arraySync();
     // End the timer for inference time
     const endTime = performance.now();
 

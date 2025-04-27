@@ -54,7 +54,7 @@ def plot_grouped_bar_comparisons(data, metrics, dataset_sizes, platforms, save_p
             values = [data[metric][size].get(platform, 0) for size in dataset_sizes]  # Gather metric values
             offset = (i - len(platforms) / 2 + 0.5) * width
             rects = ax.bar(x + offset, values, width, label=platform)
-            ax.bar_label(rects, padding=3, fontsize=8)  # Add labels to bars
+            ax.bar_label(rects, labels=[f"{val:.2f}" for val in values], padding=3, fontsize=8)  # Add labels to bars
 
         ax.set_ylabel(metric)
      #   ax.set_title(f'{metric} Comparison across Dataset Sizes')
@@ -130,8 +130,8 @@ def process_json_files(root_folder):
                         target = data.get('target')
                         predictions = data.get('predictions')
                         loss_history = data.get('loss_history')  
-                        metric_data["training_time"][percentage][platform] = round(data.get('training_time_ms') / 1000, 4)
-                        metric_data["inference_time"][percentage][platform] = round(data.get('inference_time_ms') / 1000, 4)
+                        metric_data["training_time"][percentage][platform] = data.get('training_time_ms') / 1000
+                        metric_data["inference_time"][percentage][platform] = data.get('inference_time_ms') / 1000
                         metric_data["mse"][percentage][platform] = data.get('mse')
                         metric_data["r2"][percentage][platform] = data.get('r2')
 

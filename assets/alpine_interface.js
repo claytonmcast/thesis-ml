@@ -5,10 +5,7 @@ function bindResultListTable() {
         initialized: false,   // Flag to check if the component has been initialized
 
         // Initialize the component
-        async init() {
-            // Prevent re-initialization if already done
-            if (this.initialized) return; 
-            this.initialized = true;  // Mark as initialized
+        async init() { 
 
             // Fetch the result list from the server
             const resultList = await getResultList();
@@ -79,14 +76,14 @@ function bindResultListTable() {
             // If it's a Linear Regression experiment, fetch the confidence interval
             if(firstExperiment.type.indexOf('L') === 0){
                 var ci = await getConfidenceInterval(firstLocation);
-                operation.lr_confidence_interval.push(...transformData(ci));  // Transform and add the data
+                operation.lr_confidence_interval = transformData(ci);  // Transform and add the data
                 operation.show_metric_lr = true;  // Show LR metric
             }
 
             // If it's a Neural Network experiment, fetch the confidence interval
             if(firstExperiment.type.indexOf('N') === 0){
                 var ci = await getConfidenceInterval(firstLocation);
-                operation.nn_confidence_interval.push(...transformData(ci));  // Transform and add the data
+                operation.nn_confidence_interval = transformData(ci);  // Transform and add the data
                 operation.show_metric_nn = true;  // Show NN metric
             }
 
@@ -97,7 +94,7 @@ function bindResultListTable() {
             // If the first and last experiments are of different types, fetch the appropriate metric
             if(firstExperiment.type.indexOf('L') !== lastExperiment.type.indexOf('L')){
                 var ci = await getConfidenceInterval(lastLocation);
-                operation.nn_confidence_interval.push(...transformData(ci));  // Add the NN confidence interval
+                operation.nn_confidence_interval = transformData(ci);  // Add the NN confidence interval
                 operation.show_metric_nn = true;  // Show NN metric
             }
         }

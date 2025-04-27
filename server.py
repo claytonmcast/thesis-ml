@@ -1,28 +1,28 @@
-# pip install rarfile
-# sudo apt install unrar
-
 import http.server
 from socketserver import ThreadingTCPServer
 import json
 import os
-import socket
-import rarfile
+import socket 
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse, parse_qs
 from linear_regression.app.python import linear_regression
 from linear_regression.plot import linear_regression_plot
 from neural_network.app.python import neural_network
 from neural_network.plot import neural_network_plot
+import sys
 
 def extract_if_not_exists(target_file, rar_path):
     if os.path.exists(target_file):
         print(f"{target_file} already exists. Skipping extraction.")
         return
-
-    with rarfile.RarFile(rar_path) as rf:
-        print(f"Extracting {rar_path}...")
-        rf.extractall(path=os.path.dirname(rar_path))
-        print("Extraction complete.")
+    error_message = f"""
+        ===========================
+        🚨 ERROR: Please extract the dataset rar file: {rar_path}
+        ===========================
+        """
+    print(error_message, file=sys.stderr)
+    sys.exit(1)
+    exit() 
 
 # this extract a rar which is big for github to have as a raw file
 extract_if_not_exists('neural_network/datasets/mnist_train_images.json', 'neural_network/datasets/mnist_train_images.rar')
@@ -253,4 +253,4 @@ def start_server(handler, port=8001, max_retries=5):
 
 
 # Start the server on port 8001
-start_server(MyHTTPRequestHandler, port=8001)
+start_server(MyHTTPRequestHandler, port=8002)

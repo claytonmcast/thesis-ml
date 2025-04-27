@@ -28,7 +28,7 @@ async function startProcessing(el, process, position) {
 
     // If not running all processing, update the result item
     if (runAllProcessing != true) {
-        await updateResultItem({ 
+        await updateResultItem({
             end,
             result_item_id: currentResultItem.id
         });
@@ -40,7 +40,7 @@ async function plotLinearRegression() {
     var tries = Number(document.getElementById("tries").value); // Get number of tries
     const response = await fetch("/api/plot_linear_regression?id=" + currentResultItem.id + "&tries=" + tries);
     const data = await response.json(); // Parse the JSON response
-    
+
     document.querySelector('#refresh-result-grid-component').click();
     return data;
 }
@@ -72,11 +72,11 @@ async function getNewResultItem(is_run_all) {
     var tries = Number(document.getElementById("tries").value); // Get number of tries
     const response = await fetch("/api/new_result_item?tries=" + tries + "&isRunAll=" + (is_run_all == true) + "&start=" + (new Date()).toISOString());
     const data = await response.json(); // Parse the JSON response
-    
+
     // Store the result item and trigger UI refresh
     currentResultItem = data;
     document.querySelector('#refresh-result-grid-component').click();
-    
+
     return data;
 }
 
@@ -141,11 +141,11 @@ function transformData(data) {
 
     let result = [];
 
-    // Iterate over platformOrder to process data for each platform
-    platformOrder.forEach(platform => {
-        if (data[platform]) {
-            // Iterate over datasetOrder to process data for each dataset size
-            datasetOrder.forEach(datasetSize => {
+    // Iterate over datasetOrder to process data for each dataset
+    datasetOrder.forEach(datasetSize => {
+        // Iterate over platformOrder to process data for each platform
+        platformOrder.forEach(platform => {
+            if (data[platform]) {
                 if (data[platform][datasetSize]) {
                     let entry = {
                         platform: platform.replace(/_/g, ' '), // Format platform name for readability
@@ -153,7 +153,7 @@ function transformData(data) {
                         training_time: data[platform][datasetSize].training_time,
                         inference_time: data[platform][datasetSize].inference_time
                     };
-                    
+
                     // Add additional data fields if available
                     if (data[platform][datasetSize].mse) entry["mse"] = data[platform][datasetSize].mse;
                     if (data[platform][datasetSize].r2) entry["r2"] = data[platform][datasetSize].r2;
@@ -162,8 +162,8 @@ function transformData(data) {
 
                     result.push(entry); // Push the entry to the result array
                 }
-            });
-        }
+            }
+        });
     });
 
     return result;

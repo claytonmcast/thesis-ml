@@ -156,8 +156,10 @@ async function runLinearRegression(engine, datasetPath, sample) {
 
     // Run predictions
     const startTime = performance.now();
-    const predictions = model.predict(tf.tensor2d(normalizedFeatures));
-    await predictions.data(); // Ensure predictions are resolved
+    const predictions = await model.predict(tf.tensor2d(normalizedFeatures));
+    // make sure prediction received data
+    const predictionList = predictions.arraySync();
+    //await predictions.data(); // Ensure predictions are resolved
     const endTime = performance.now();
     const inferenceTime = endTime - startTime;
 

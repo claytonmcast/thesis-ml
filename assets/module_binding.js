@@ -23,6 +23,8 @@ async function plotAll() {
     });
     await plotLinearRegression();
     await plotNeuralNetwork();
+    
+    document.querySelector('#refresh-result-grid-component').click(); // Refresh the result grid
 }
 
 // Main function to run all experiments sequentially

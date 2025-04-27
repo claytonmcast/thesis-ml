@@ -59,7 +59,7 @@ def plot_grouped_bar_comparisons(data, metrics, dataset_sizes, platforms, save_p
             values = [data[metric][size].get(platform, 0) for size in dataset_sizes]
             offset = (i - len(platforms) / 2 + 0.5) * width
             rects = ax.bar(x + offset, values, width, label=platform)
-            ax.bar_label(rects, padding=3, fontsize=8)
+            ax.bar_label(rects, labels=[f"{val:.2f}" for val in values], padding=3, fontsize=8)
 
         # Add some text for labels, title and custom x-axis tick labels, etc.
         ax.set_ylabel(metric)
@@ -131,8 +131,8 @@ def process_json_files(root_folder):
                         accuracy_values = data.get('accuracy_values')
                         val_loss_values = data.get('val_loss_values')
                         val_accuracy_values = data.get('val_accuracy_values')
-                        metric_data["training_time"][percentage][platform] = round(data.get('training_time_ms') / 1000, 4)
-                        metric_data["inference_time"][percentage][platform] = round(data.get('inference_time_ms') / 1000, 4)
+                        metric_data["training_time"][percentage][platform] = data.get('training_time_ms') / 1000
+                        metric_data["inference_time"][percentage][platform] = data.get('inference_time_ms') / 1000
                         metric_data["accuracy"][percentage][platform] = data.get('accuracy')
                         metric_data["loss"][percentage][platform] = data.get('loss') 
                         # print(loss_values)

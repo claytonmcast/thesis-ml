@@ -206,8 +206,7 @@
                 </div>
                 <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()"
                     :class="{ 'initialized': initialized }">
-                    <button id="refresh-result-grid-component" style="display: none;" @click="init()"></button>
-                    <!-- <button id="refresh-result-grid-component" style="display: none;"></button> -->
+                    <input type="button" id="refresh-result-grid-component" style="display: none;" @click="init()"></input>
                     <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
                         <thead class="bg-gray-100">
                             <tr>
@@ -447,8 +446,7 @@
                                                         <template x-if="exindex == 0 && group.show_graphs == true">
                                                             <tr x-show="exindex == 0 && group.show_graphs == true">
                                                                 <td colspan="6">
-                                                                    <div
-                                                                        x-show="group.experiments[0].type.indexOf('L') == 0">
+                                                                    <div x-show="group.experiments[0].type.indexOf('L') == 0">
                                                                         <h2 class="title">Linear Regression</h2>
                                                                         <h3 class="title text-sm">Training Time VS
                                                                             Dataset Size</h3>
@@ -458,38 +456,24 @@
                                                                             Dataset Size</h3>
                                                                         <img
                                                                             :src="exp.try_path + '/inference_time_comparison.png'" />
-                                                                        <h3 class="title text-sm"
-                                                                            x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'">
-                                                                        </h3>
+                                                                        <h3 class="title text-sm">MSE VS Dataset Size</h3>
                                                                         <img
-                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
-                                                                        <h3 class="title text-sm"
-                                                                            x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'">
-                                                                        </h3>
+                                                                            :src="exp.try_path + '/mse_comparison.png' " />
+                                                                        <h3 class="title text-sm">R2 VS Dataset Size</h3>
                                                                         <img
-                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
+                                                                            :src="exp.try_path + '/r2_comparison.png'" />
                                                                     </div>
-                                                                    <div
-                                                                        x-show="group.experiments[group.experiments.length -1 ].type.indexOf('N') == 0">
+                                                                    <div x-show="group.experiments[group.experiments.length -1 ].type.indexOf('N') == 0">
                                                                         <h2 class="title">Neural Network</h2>
-                                                                        <h3 class="title text-sm">Training Time VS
-                                                                            Dataset Size</h3>
+                                                                        <h3 class="title text-sm">Training Time VS Dataset Size <div x-html="exp.type"></div></h3>
                                                                         <img
-                                                                            :src="exp.try_path + '/training_time_comparison.png'" />
-                                                                        <h3 class="title text-sm">Inference Time VS
-                                                                            Dataset Size</h3>
-                                                                        <img
-                                                                            :src="exp.try_path + '/inference_time_comparison.png'" />
-                                                                        <h3 class="title text-sm"
-                                                                            x-html="exp.type.indexOf('L') == 0 ? 'MSE VS Dataset Size': 'Accuracy VS Dataset Size'">
-                                                                        </h3>
-                                                                        <img
-                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/mse_comparison.png': '/accuracy_comparison.png' ) " />
-                                                                        <h3 class="title text-sm"
-                                                                            x-html="exp.type.indexOf('L') == 0 ? 'R2 VS Dataset Size': 'Loss VS Dataset Size'">
-                                                                        </h3>
-                                                                        <img
-                                                                            :src="exp.try_path + (exp.type.indexOf('L') == 0 ? '/r2_comparison.png': '/loss_comparison.png' )" />
+                                                                            :src="group.experiments[group.experiments.length -1 ].try_path + '/training_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Inference Time VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/inference_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Accuracy VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/accuracy_comparison.png'" />
+                                                                        <h3 class="title text-sm">Loss VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/loss_comparison.png'" />
                                                                     </div>
                                                                 </td>
                                                             </tr>
