@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Training</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-data/dist/tf-data.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgpu"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/style.css" />
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-semibold mb-6 text-center">Train ML Datasets in Browser</h1>
+        <div class="flex gap-4">
+            <div class="w-1/2 overflow-auto">
+                <table class="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <thead class="bg-blue-500 text-white">
+                        <tr>
+                            <th class="py-2 px-2 text-center">Model</th>
+                            <th class="py-2 px-2 text-center" colspan="3">Dataset Size</th>
+                        </tr>
+                        <tr>
+                            <th class="py-2 px-2"></th>
+                            <th class="py-2 px-2 text-center"></th>
+                            <th class="py-2 px-2 text-center"></th>
+                            <th class="py-2 px-2 text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <h1 class="title">Linear Regression</h1>
+                            </td>
+                        </tr>
+                        <!-- Model Row 1 -->
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js CPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="10%"
+                                    dataset="house_price/sample_10%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 10%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="50%"
+                                    dataset="house_price/sample_50%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 50%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="100%"
+                                    dataset="house_price/sample_100%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 100%)<span
+                                        class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js WebGPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="10%"
+                                    dataset="house_price/sample_10%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 10%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="50%"
+                                    dataset="house_price/sample_50%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 50%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="100%"
+                                    dataset="house_price/sample_100%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 100%)<span
+                                        class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js WASM</td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="10%"
+                                    dataset="house_price/sample_10%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 10%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="50%"
+                                    dataset="house_price/sample_50%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 50%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="100%"
+                                    dataset="house_price/sample_100%.csv"
+                                    class="lr-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 100%)<span
+                                        class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">Rust WASM CPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="10%"
+                                    dataset="house_price/sample_10%.csv"
+                                    class="lr-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 10%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="50%"
+                                    dataset="house_price/sample_50%.csv"
+                                    class="lr-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 50%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="100%"
+                                    dataset="house_price/sample_100%.csv"
+                                    class="lr-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 100%)<span
+                                        class="process-number"></span></button></td>
+                        </tr>
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">Python GPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="10%" dataset="1"
+                                    class="lr-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 10%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="50%" dataset="2"
+                                    class="lr-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 50%)<span
+                                        class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="100%" dataset="3"
+                                    class="lr-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample 100%)<span
+                                        class="process-number"></span></button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <h1 class="title">Neural Network</h1>
+                            </td>
+                        </tr>
+                        <!-- Model Row 2 -->
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js CPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="10%" dataset="0.10"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="50%" dataset="0.50"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="100%" dataset="1.0"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    100%)<span class="process-number"></span></button></span></td>
+                        </tr>
+
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js WebGPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="10%" dataset="0.10"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="50%" dataset="0.50"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="webgpu" sample="100%" dataset="1.0"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    100%)<span class="process-number"></span></button></td>
+                        </tr>
+
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">TensorFlow.js WASM</td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="10%" dataset="0.10"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="50%" dataset="0.50"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="wasm" sample="100%" dataset="1.0"
+                                    class="mnist-tf bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    100%)<span class="process-number"></span></button></td>
+                        </tr>
+
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">Rust WASM CPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="10%" dataset="0.10"
+                                    class="mnist-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="50%" dataset="0.50"
+                                    class="mnist-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="cpu" sample="100%" dataset="1.0"
+                                    class="mnist-wasm bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    100%)<span class="process-number"></span></button></td>
+                        </tr>
+
+                        <tr class="border-t border-gray-200">
+                            <td class="py-4 px-2">Python GPU</td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="10%" dataset="1"
+                                    class="mnist-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    10%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="50%" dataset="2"
+                                    class="mnist-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    50%)<span class="process-number"></span></button></td>
+                            <td class="py-4 px-2 text-center"><button engine="gpu" sample="100%" dataset="3"
+                                    class="mnist-python bg-blue-500 text-white py-2 px-2 rounded-lg">Run (sample
+                                    100%)<span class="process-number"></span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="w-1/2 bg-gray-50 p-4 border border-gray-200">
+                <h2 class="text-lg font-semibold mb-2">Operations</h2>
+                <div class="p-4">
+                    <label for="tries" class="block text-sm font-medium text-gray-700 mb-1">
+                        Tries
+                    </label>
+                    <input type="number" id="tries" name="tries" min="1"
+                        class="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="1" value="15" />
+                    <button type="button"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" id="run-all">
+                        Run All
+                    </button>
+                </div>
+                <div id="result-grid-component" class="p-4" x-data="bindResultListTable()" x-init="init()"
+                    :class="{ 'initialized': initialized }">
+                    <input type="button" id="refresh-result-grid-component" style="display: none;" @click="init()"></input>
+                    <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Id</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tries</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Start</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    End</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </th>
+                            </tr>
+                        </thead>
+                        <template x-for="(item, index) in data" :key="index">
+                            <tbody class="divide-y divide-gray-200">
+                                <tr :class="index % 2 === 0 ? 'bg-gray-50 hover:bg-gray-100' : ''">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700" x-html="item.id"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700" x-html="item.tries">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><span
+                                            x-text="item.start ? dayjs(item.start).format('DD/MM/YYYY HH:mm:ss') : '-'"></span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><span
+                                            x-text="item.end ? dayjs(item.end).format('DD/MM/YYYY HH:mm:ss') : '-'"></span>
+                                    </td>
+                                    <td>
+                                        <button title="experiments" @click="displayExperiments(item)"
+                                            :class="(item.display_experiments == true) ? 'bg-gray-500 text-white py-2 px-2 rounded-sm' : 'bg-blue-500 text-white py-2 px-2 rounded-sm'"><i
+                                                class="fa-solid fa-flask"></i></button>
+                                        <button title="metrics" @click="displayMetrics(item)"
+                                            :class="(item.show_metric == true) ? 'bg-gray-500 text-white py-2 px-2 rounded-sm' : 'bg-blue-500 text-white py-2 px-2 rounded-sm'">
+                                            <i class="fa-solid fa-table"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr x-show="item.show_metric">
+                                    <td colspan="5">
+                                        <h1 x-show="item.show_metric_lr" class="title text-sm">Linear Regression
+                                            Confidence Interval</h1>
+                                        <table x-show="item.show_metric_lr"
+                                            class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
+                                            <thead class="bg-blue-200">
+                                                <tr>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-left">
+                                                        Platform</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Dataset</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Training Time</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Inference Time</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        MSE</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        R2
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200">
+                                                <template x-if="item.show_metric_lr == true">
+                                                    <template x-for="(ci, ds_idx) in item.lr_confidence_interval"
+                                                        :key="ds_idx">
+                                                        <template x-if="ds_idx != undefined">
+                                                            <tr x-show="ci.platform"
+                                                                :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700 text-left"
+                                                                    x-html="ci.platform"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
+                                                                    x-html="ci.dataset_size"></td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.training_time.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.training_time.ci_upper">
+                                                                            </div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.inference_time.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.inference_time.ci_upper">
+                                                                            </div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.mse.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.mse.ci_upper"></div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.r2.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.r2.ci_upper"></div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </template>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                        <h1 x-show="item.show_metric_nn" class="title text-sm">Neural Network Confidence
+                                            Interval</h1>
+                                        <table x-show="item.show_metric_nn"
+                                            class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow text-center">
+                                            <thead class="bg-blue-200">
+                                                <tr>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-left">
+                                                        Platform</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Dataset</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Training Time</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Inference Time</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Accuracy</th>
+                                                    <th
+                                                        class="px-2 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Loss
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200">
+                                                <template x-if="item.show_metric_nn == true">
+                                                    <template x-for="(ci, ds_idx) in item.nn_confidence_interval"
+                                                        :key="ds_idx">
+                                                        <template x-if="ds_idx != undefined">
+                                                            <tr x-show="ci.platform"
+                                                                :class="ds_idx % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700 text-left"
+                                                                    x-html="ci.platform"></td>
+                                                                <td class="px-1 py-4 whitespace-nowrap text-xs text-gray-700"
+                                                                    x-html="ci.dataset_size"></td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.training_time.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.training_time.ci_upper">
+                                                                            </div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.inference_time.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.inference_time.ci_upper">
+                                                                            </div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.accuracy.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.accuracy.ci_upper"></div>
+                                                                </td>
+                                                                <td
+                                                                    class="px-1 py-4 whitespace-nowrap text-xs text-gray-700">
+                                                                    <div x-html="ci.loss.ci_lower"></div>
+                                                                    <div>
+                                                                        < μ <</div>
+                                                                            <div x-html="ci.loss.ci_upper"></div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </template>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr x-show="item.display_experiments">
+                                    <td colspan="5">
+                                        <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow">
+                                            <thead class="bg-blue-200">
+                                                <tr>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Type</th>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Try</th>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Sample</th>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Start</th>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        End</th>
+                                                    <th
+                                                        class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    </th>
+                                                    <th>
+
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <template x-for="(group) in item.experiments" :key="group.try">
+                                                <template x-for="(exp, exindex) in group.experiments" :key="exindex">
+                                                    <tbody class="divide-y divide-gray-200">
+                                                        <tr x-show="exindex == 0">
+                                                            <td colspan="6"
+                                                                class="bg-gray-100 text-center px-4 py-2 text-sm text-gray-700 font-medium border-b">
+                                                                <span x-text="group.try"></span>
+                                                                <button
+                                                                    :title="exp.type.indexOf('L') == 0 ? 'linear regression' : 'neural network'"
+                                                                    @click="group.show_graphs = !group.show_graphs"
+                                                                    :class="(group.show_graphs == true) ? 'bg-gray-500 text-white py-2 px-2 rounded-sm' : 'bg-blue-500 text-white py-2 px-2 rounded-sm'">
+                                                                    <i class="fa-solid fa-chart-line"></i>
+                                                            </td>
+                                                        </tr>
+                                                        <template x-if="exindex == 0 && group.show_graphs == true">
+                                                            <tr x-show="exindex == 0 && group.show_graphs == true">
+                                                                <td colspan="6">
+                                                                    <div x-show="group.experiments[0].type.indexOf('L') == 0">
+                                                                        <h2 class="title">Linear Regression</h2>
+                                                                        <h3 class="title text-sm">Training Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/training_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Inference Time VS
+                                                                            Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/inference_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">MSE VS Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/mse_comparison.png' " />
+                                                                        <h3 class="title text-sm">R2 VS Dataset Size</h3>
+                                                                        <img
+                                                                            :src="exp.try_path + '/r2_comparison.png'" />
+                                                                    </div>
+                                                                    <div x-show="group.experiments[group.experiments.length -1 ].type.indexOf('N') == 0">
+                                                                        <h2 class="title">Neural Network</h2>
+                                                                        <h3 class="title text-sm">Training Time VS Dataset Size</h3>
+                                                                        <img
+                                                                            :src="group.experiments[group.experiments.length -1 ].try_path + '/training_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Inference Time VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/inference_time_comparison.png'" />
+                                                                        <h3 class="title text-sm">Accuracy VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/accuracy_comparison.png'" />
+                                                                        <h3 class="title text-sm">Loss VS Dataset Size</h3>
+                                                                        <img :src="group.experiments[group.experiments.length -1 ].try_path + '/loss_comparison.png'" />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                        <tr
+                                                            :class="exindex % 2 === 0 ? 'bg-blue-50 hover:bg-blue-100' : ''">
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-700"
+                                                                x-html="exp.type"></td>
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-700"
+                                                                x-html="exp.try"></td>
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-700"
+                                                                x-html="exp.sample"></td>
+                                                            <td
+                                                                class="px-2 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                                <div x-text="dayjs(exp.start).format('DD/MM/YYYY')">
+                                                                </div>
+                                                                <div x-text="dayjs(exp.start).format('HH:mm:ss')">
+                                                                </div>
+                                                            </td>
+                                                            <td
+                                                                class="px-2 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                                <div x-text="dayjs(exp.end).format('DD/MM/YYYY')">
+                                                                </div>
+                                                                <div x-text="dayjs(exp.end).format('HH:mm:ss')"></div>
+                                                            </td>
+                                                            <td>
+                                                                <button
+                                                                    :title="exp.type.indexOf('L') == 0 ? 'linear regression' : 'neural network'"
+                                                                    @click="exp.show_experiment_graph = !exp.show_experiment_graph"
+                                                                    :class="(exp.show_experiment_graph == true) ? 'bg-gray-500 text-white py-2 px-2 rounded-sm' : 'bg-blue-500 text-white py-2 px-2 rounded-sm'">
+                                                                    <i class="fa-solid fa-chart-line"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <template x-if="exp.show_experiment_graph == true">
+                                                            <tr x-show="exp.show_experiment_graph == true">
+                                                                <td colspan="6">
+                                                                    <div x-show="exp.type.indexOf('L') == 0">
+                                                                        <h3 class="title text-sm">Regression Line</h3>
+                                                                        <img
+                                                                            :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_regression_line.png`" />
+                                                                        <h3 class="title text-sm">Loss History</h3>
+                                                                        <img
+                                                                            :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_loss_history.png`" />
+                                                                    </div>
+                                                                    <div x-show="exp.type.indexOf('N') == 0">
+                                                                        <h3 class="title text-sm">Accuracy</h3>
+                                                                        <img
+                                                                            :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_accuracy.png`" />
+                                                                        <h3 class="title text-sm">Loss</h3>
+                                                                        <img
+                                                                            :src="exp.experiment_path + '/' + exp.platform + `_sample_${exp.sample}_loss.png`" />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </template>
+                                            </template>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/assets/app.js"></script> 
+    <script type="module" src="/linear_regression/app/tensorflow_js/tensorflow_js_app.js"></script>
+    <script type="module" src="/linear_regression/app/rust_wasm/src/rust_wasm_app.js"></script>
+    <script type="module" src="/neural_network/app/tensorflow_js/tensorflow_js_app.js"></script>
+    <script type="module" src="/neural_network/app/rust_wasm/src/rust-wasm-app.js"></script> 
+    <script type="module" src="/assets/module_binding.js"> </script> 
+    <script src="/assets/alpine_interface.js"></script> 
+</body>
+
+</html>
