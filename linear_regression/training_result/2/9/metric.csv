@@ -1,2 +1,0 @@
-Platform,Dataset Size,Training Time (ms),Inference Time (ms),MSE,R2
-tensorflow_js_wasm,100%,32.08669999999553,4.71560000000149,3612277760,0.5728065967559814

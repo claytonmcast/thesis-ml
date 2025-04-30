@@ -1,2 +1,0 @@
-Platform,Dataset Size,Training Time (ms),Inference Time (ms),MSE,R2
-tensorflow_js_cpu,100%,29.41069999999553,0.15070000000298023,3612863232,0.5727013349533081
