@@ -134,6 +134,44 @@ function disable_enable_buttons(isDisabled) {
     document.getElementById('tries').disabled = isDisabled; // Disable tries input field
 }
 
+function overleafOutputLR(data){
+    let formattedTable = "";
+    data.forEach(row=>{
+        if(row.mse == undefined || row.mse.ci_lower == undefined){
+            debugger;
+        }
+        var format = `
+${row.platform.replaceAll(' ', '\\_')} & ${row.dataset_size.replace('%', '\\%')} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.training_time.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.training_time.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.inference_time.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.inference_time.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.mse.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.mse.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.r2.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.r2.ci_upper} \\end{tabular} \\\\ \\hline
+        `;
+        formattedTable += format;
+    })
+    window.ci_overleaf_lr = formattedTable;
+    return formattedTable;
+}
+
+function overleafOutputNN(data){
+    let formattedTable = "";
+    data.forEach(row=>{
+
+        var format = `
+${row.platform.replaceAll(' ', '\\_')} & ${row.dataset_size.replace('%', '\\%')}\\% & 
+\\begin{tabular}[t]{@{}c@{}} ${row.training_time.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.training_time.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.inference_time.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.inference_time.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.accuracy.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.accuracy.ci_upper} \\end{tabular} & 
+\\begin{tabular}[t]{@{}c@{}} ${row.loss.ci_lower} \\\\ $< \\mu <$ \\\\ ${row.loss.ci_upper} \\end{tabular} \\\\ \\hline
+        `;
+        formattedTable += format;
+    })
+
+    window.ci_overleaf_nn = formattedTable;
+    return formattedTable;
+}
+
+
 // Function to transform and sort the data for the confidence interval object
 function transformData(data) {
     const platformOrder = ["tensorflow_js_cpu", "tensorflow_js_webgpu", "tensorflow_js_wasm", "rust_wasm_cpu", "python_gpu"];

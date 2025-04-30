@@ -78,6 +78,7 @@ function bindResultListTable() {
                 var ci = await getConfidenceInterval(firstLocation);
                 operation.lr_confidence_interval = transformData(ci);  // Transform and add the data
                 operation.show_metric_lr = true;  // Show LR metric
+                overleafOutputLR(operation.lr_confidence_interval)
             }
 
             // If it's a Neural Network experiment, fetch the confidence interval
@@ -85,6 +86,7 @@ function bindResultListTable() {
                 var ci = await getConfidenceInterval(firstLocation);
                 operation.nn_confidence_interval = transformData(ci);  // Transform and add the data
                 operation.show_metric_nn = true;  // Show NN metric
+                overleafOutputNN(operation.nn_confidence_interval)
             }
 
             // Check the last experiment's type to handle any differences in metrics
@@ -96,6 +98,7 @@ function bindResultListTable() {
                 var ci = await getConfidenceInterval(lastLocation);
                 operation.nn_confidence_interval = transformData(ci);  // Add the NN confidence interval
                 operation.show_metric_nn = true;  // Show NN metric
+                overleafOutputNN(operation.nn_confidence_interval)
             }
         }
     };

@@ -1,0 +1,22 @@
+{
+    "tensorflow_js_wasm": {
+        "100%": {
+            "training_time": {
+                "ci_lower": 31.67,
+                "ci_upper": 32.14
+            },
+            "inference_time": {
+                "ci_lower": 4.58,
+                "ci_upper": 4.67
+            },
+            "mse": {
+                "ci_lower": 3612297341.76,
+                "ci_upper": 3612401845.44
+            },
+            "r2": {
+                "ci_lower": 0.57,
+                "ci_upper": 0.57
+            }
+        }
+    }
+}
